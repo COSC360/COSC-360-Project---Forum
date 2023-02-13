@@ -9,28 +9,32 @@ The website should function as a public forum with user interaction. In a way, i
 <h2> Deliverables: </h2>
 
 <h3>User Functionalities: </h3>
-  •	Create post
-    o	Add images to the post
-    o	Add text to the post
-    o	Add a title
-  •	Comment
-    o	Can also reply to comments
-  •	Create account
-    o	Create a password
-    o	Edit password
-    o	Add and edit profile picture
-    o	Add and edit an account bio
-  •	Like posts
-  •	Like comments
-  •	View other user’s posting history
-    o	A user’s posting history includes:
-      -	Comments
-      -	Posts
-      -	Likes
-      
+<ul>
+  <li>Create post
+    <ul><li>Add images to the post</li>
+    <li>Add text to the post</li>
+    <li>Add a title</li></ul>
+  <li>Comment
+    <ul><li>Can also reply to comments</li></ul>
+  <li>Create account
+    <ul><li>Create a password</li>
+    <li>Edit password</li>
+    <li>Add and edit profile picture</li>
+    <li>Add and edit an account bio</li></ul>
+  <li>Like posts</li>
+  <li>Like comments</li>
+  <li>View other user’s posting history</li>
+  <li>A user’s posting history includes:
+    <ul><li>Comments</li>
+    <li>Posts
+    <li>Likes</li></ul>
+</ul>    
+  
 <h3>Admin Functionalities:</h3>
-  •	Ban users
-    o	Temporary or permanently
-  •	Create boards (?)
-  •	Remove posts
-  •	Remove comments
+<ul>
+  <li>Ban users</li>
+  <ul><li>Temporary or permanently</li></ul>
+  <li>Create boards (?)</li>
+  <li>Remove posts</li>
+  <li>Remove comments</li>
+</ul>
