@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="css/home_page.css" />
+    <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Smooch Sans'>
+</head>
+<body>
+    <header id="masthead">
+        <h1><a href="home_page.html">HOME</a></h1>
+        <div id="profile">
+            <h1><a href="account.html">MY ACCOUNT</a></h2>
+            <img id="pic" src="images/profile_pic.png">
+        </div>
+    </header>
+    <div id="main">
+        <article id="right-sidebar">
+            <h2>BOARDS</h2>
+            <ul>
+                <li><a href="#">#GENERAL<a></li>
+                <li><a href="#">#MUSIC</a></li>
+                <li><a href="#">#POLITICS</a></li>
+                <li><a href="#">#NEWS</a></li>
+                <li><a href="#">#MOVIES</a></li>
+                <li><a href="#">#VIDEOGAMES</a></li>
+                <li><a href="#">#MEMES</a></li>
+            </ul>
+        </article>
+        <article id="center">
+            <div id="top">
+                <p id="sort_by">
+                    <label for="sort">SORT BY:</label>
+                    <select name="sort" id="sort">
+                    <option value="date">DATE</option>
+                    <option value="likes">LIKES</option>
+                    </select>
+                </p>
+                <h2>#GENERAL</h2>
+            </div>
+            <article id="post_list">
+                <div class="post">
+                    <img src="images/image_pic.png" class="post_image">
+                    <div class="post_text">
+                        <h3>Post #1</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et risus non sem ultrices egestas vitae at diam...</p>
+                        <p><time datetime="26/02/2023 20:00">26/02/2023 20:00</time></p>
+                    </div>
+                    <div class="likes">
+                        <button type="button"><img class="liked" src="images/like_button.png"></button>
+                        <p>13</p>
+                    </div>
+                </div>
+                <div class="post">
+                    <img src="images/image_pic.png" class="post_image">
+                    <div class="post_text">
+                        <h3>Post #2</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et risus non sem ultrices egestas vitae at diam...</p>
+                        <p><time datetime="24/02/2023 10:00">24/02/2023 10:00</time></p>
+                    </div>
+                    <div class="likes">
+                        <button type="button"><img src="images/not_liked.png" class="no_like"></button>
+                        <p>13</p>
+                    </div>
+                </div>
+                <div class="post">
+                    <img src="images/image_pic.png" class="hidden">
+                    <div class="post_text">
+                        <h3>Post #3</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et risus non sem ultrices egestas vitae at diam...</p>
+                        <p><time datetime="19/01/2023 15:00">19/01/2023 15:00</time></p>
+                    </div>
+                    <div class="likes">
+                        <button type=button><img src="images/not_liked.png" class="no_like"></button>
+                        <p>13</p>
+                    </div>
+                </div>
+                <div class="post">
+                    <img src="images/image_pic.png" class="post_image">
+                    <div class="post_text">
+                        <h3>Post #4</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et risus non sem ultrices egestas vitae at diam...</p>
+                        <p><time datetime="02/01/2023 19:30">02/01/2023 19:30</time></p>
+                    </div>
+                    <div class="likes">
+                        <button type="button"><img src="images/like_button.png" class="liked"></button>
+                        <p>13</p>
+                    </div>
+                </div>
+                <div class="post">
+                    <img src="images/image_pic.png" class="hidden">
+                    <div class="post_text">
+                        <h3>Post #5</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et risus non sem ultrices egestas vitae at diam...</p>
+                        <p><time datetime="01/01/2023 20:00">01/01/2023 20:00</time></p>
+                    </div>
+                    <div class="likes">
+                        <button type="button"><img class="no_like" src="images/not_liked.png"></button>
+                        <p>13</p>
+                    </div>
+                </div>
+            </article>
+        </article>
+    </div>
+</body>
+<footer></footer>
+</html>

@@ -1,0 +1,177 @@
+* {
+    font-family:'Smooch Sans';
+    color: white;
+}
+
+body {
+    background-color:#1E2124;
+}
+
+h1 {
+    font-size: 48px;   
+    margin: 0px;
+    padding-top: 0.5em;
+}
+
+h2 {
+    font-size: 40px;
+}
+
+h3 {
+    font-size: 28px;
+    margin:0;
+}
+
+label {
+    font-size: 28px;
+}
+
+select {
+    background-color: black;
+    color: white;
+    width: 100px;
+    height: 30px;
+    font-size: 24px;
+}
+
+article h2 {
+    text-align: center;
+    padding-top: 0.3em;
+}
+
+li {
+    word-wrap:break-word;
+}
+
+button {
+    appearance: none;
+    cursor: pointer;
+    background-color: inherit;
+    border: none;
+    margin: 0;
+    padding: 0;
+    height: 50%;
+    flex-grow: 2;
+    top: 1em;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:active {
+    color: white;
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+#masthead{
+    height: 10%;
+    display: flex;
+    justify-content: space-between;
+    background-color:#1E2124;
+    padding-top: 1em;
+    padding-left: 1em;
+}
+
+#pic {
+    height: 100px;
+    width: 100px;
+    float: right;
+    padding-left: 1em;
+}
+
+#profile {
+    display: flex;
+    flex-direction: row;
+}
+
+#right-sidebar {
+    float: left;
+    height: 100%;
+    width: 20%;
+    min-width: 200px;
+    background-color:#282B30;
+    font-size: 32px;
+}
+
+#center {
+    width: inherit;
+    height: 80vh;
+    margin-left: 20%;
+    width: auto;
+    background-color: #36393E;
+}
+
+#post_list {
+    overflow: auto;
+    height: 88%;
+}
+
+#top {
+    width: 100%;
+    height: 10%;
+    min-height: 80px;
+}
+
+#sort_by{
+    float: left;
+    margin-left: 1em;
+}
+
+.post {
+    padding-left: 1em;
+    background-color: #424549;
+    height: 10em;
+    overflow: hidden;
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    margin-top: 1.5em;
+}
+
+.post_image{
+    height: inherit;
+}
+
+.post_text {
+    flex: 1 1 auto;
+    margin-left: 1em;
+    margin-top: 1em;
+}
+
+.likes {
+    height: inherit;
+    margin-right: 2em;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 28px;
+}
+
+.hidden {
+    display: none;
+}
+
+.no_like {
+    height: 100%;
+    flex-grow: 2;
+    top: 1em;
+    padding-top: 2em;
+    filter: drop-shadow(3px 3px 1px #0000005d);
+}
+
+.liked {
+    height: 100%;
+    flex-grow: 2;
+    top: 1em;
+    padding-top: 2em;
+    filter: drop-shadow(3px 3px 1px #0000005d);
+}
