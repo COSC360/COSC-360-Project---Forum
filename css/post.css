@@ -19,7 +19,20 @@ h2 {
 
 h3 {
     font-size: 28px;
-    margin:0;
+    text-indent: 0.5em;
+}
+
+h4{
+    font-size: 24px;
+    margin: 0;
+}
+
+p {
+    font-size: 20px;
+}
+
+br{
+    line-height: 150%;
 }
 
 article h2 {
@@ -50,8 +63,6 @@ button {
     margin: 0;
     padding: 0;
     height: 50%;
-    flex-grow: 2;
-    top: 1em;
 }
 
 a:link {
@@ -92,6 +103,10 @@ a:visited {
     flex-direction: row;
 }
 
+#main {
+    margin-top: 2em;
+}
+
 #sidebar {
     float: left;
     height: 80vh;
@@ -107,72 +122,95 @@ a:visited {
     background-color: #36393E;
 }
 
-#post_list {
-    overflow: auto;
-    height: 88%;
-}
-
 #top {
     width: 100%;
     height: 10%;
     min-height: 80px;
+    background-color: #424549;
 }
 
 #top h2 {
-    padding-top: 0.3em;
-}
-
-#sort_by{
     float: left;
-    margin-left: 1em;
+    margin: 0;
+    padding-top: 0.5em;
 }
 
-.post {
-    padding-left: 1em;
-    background-color: #424549;
-    height: 10em;
-    overflow: hidden;
-    display: flex;
-    justify-content: flex-start;
-    align-items: stretch;
-    margin-top: 1.5em;
+#post_title {
+    text-align: left;
+    text-indent: 1em;
 }
 
-.post_image{
-    height: inherit;
+#post_by {
+    text-align: right;
+    padding-top: 1.5em;
+    padding-right: 2em;
 }
 
-.post_text {
-    flex: 1 1 auto;
-    margin-left: 1em;
-    margin-top: 1em;
+#post {
+    overflow: auto;
+    height: 88%;
 }
 
-.likes {
-    height: inherit;
-    margin-right: 2em;
+#post_image {
+    max-height: 400px;
+    float: left;
+}
+
+#comment_title {
+float: left;
+}
+
+.post_likes {
+    float: right;
+    height: 120px;
+    width: 3em;
+    margin-right: 1em;
     display: flex;
     flex-direction: column;
     text-align: center;
     font-size: 28px;
 }
 
-.hidden {
-    display: none;
+.comment {
+    padding-left: 1em;
+    padding-top: 1em;
+    background-color: #424549;
+    overflow: hidden;
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    margin-top: 1.5em;
+    clear: both;
 }
 
-.no_like {
+.comment_pic {
+    height: 100px;
+}
+
+.comment_date {
+    margin: 0;
+}
+
+.comment_text {
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+.likes {
+    height: 100px;
+    margin-right: 1em;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 28px;
+}
+
+.like {
     height: 100%;
     flex-grow: 2;
-    top: 1em;
-    padding-top: 2em;
     filter: drop-shadow(3px 3px 1px #0000005d);
 }
 
-.liked {
-    height: 100%;
-    flex-grow: 2;
-    top: 1em;
-    padding-top: 2em;
-    filter: drop-shadow(3px 3px 1px #0000005d);
+.like_number {
+    margin:0;
 }
