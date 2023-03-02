@@ -1,0 +1,113 @@
+* {
+    font-family: "Smooch Sans";
+}
+
+body, .header, .footer{
+    background-color: black;
+}
+.header, .footer {
+    height: auto;
+    overflow: auto;
+}
+
+article {
+    background-color: #1E2124;
+    min-width: 1000px;
+}
+
+.header p {
+    display: inline-block;
+    color: white;
+    font-size: 40px;
+    font-weight: bold; 
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.header a {
+    float: right; 
+}
+
+.footer {
+    clear: both;
+}
+
+.footer p {
+    display: inline-block;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.articleLeft {
+    float: left;
+    text-align: center;
+    height: auto;
+    width: 35%;  
+}
+
+#avatar {
+    height: 400px;
+    width: 400px;
+}
+
+#addPic > figure {
+    text-align: center;
+}
+#addPic {
+    color: #284FDF;
+}
+#addPic:visited {
+    text-decoration: none;
+}
+
+.articleRight {
+    text-align: left;
+    width: 65%;
+    float: right;
+    overflow: hidden;
+}
+
+#formHolder {
+    width: auto;
+    color: white;
+    border-style: none;
+    margin-left: 5em;
+}
+
+#formHolder form label {
+    font-size: 32px;
+}
+
+input[type = "text"], input[type = "password"] {
+    display: inline-block;
+    width: 50%;
+    font-size: 28px;
+    background-color: #D9D9D9;
+}
+
+#month, #day, #year {
+    font-size: 28px;
+    width: 25%;
+    background-color: #D9D9D9;
+}
+
+.submit {
+    clear:both;
+    text-align: center;
+}
+
+.submit button {
+    color: white;
+    background-color: #424549;
+    font-size: 28px;
+    border: none;
+    border-radius: 5px;
+    padding: 0.25em 0.5em 0.25em 0.5em;
+    margin-bottom: 1em;
+}
+
+.submit button:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+
