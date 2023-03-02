@@ -11,6 +11,9 @@ createAcc.addEventListener("click",function(e) {
     if (fname.value == "" | lname.value == "" | uname.value == "" | email.value == "" | password.value == "" | repassword.value == "") {
         alert("Please ensure all fields are filled");
         e.preventDefault();
+    } else if (password.value != repassword.value) {
+        alert("Please ensure the passwords are the same");
+        e.preventDefault();
     }
 
 });
