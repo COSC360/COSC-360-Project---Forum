@@ -5,18 +5,19 @@
     <title>Log In</title>
     <link rel="stylesheet" href="css/log_in.css" />
     <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Smooch Sans'>
+    <script type="text/javascript" src="scripts/validateLogin.js"></script>
 </head>
 <body>
     <article id="container" class="centered">
-        <form method="post" action="http://wwww.randyconnolly.com/tests/process.php" id="form">
+        <form method="post" action="login.php" id="form">
             <fieldset>
                 <p>
                     <label for="username">Username:</label>
-                    <input type="text" name="username" id="username"/>
+                    <input type="text" name="username" id="username" class="required"/>
                 </p>
                 <p>
                     <label for="password">Password:</label>
-                    <input type="password" name="password" id="password"/>
+                    <input type="password" name="password" id="password" class="required"/>
                 </p>
                 <input type="submit" class="button" />
             </fieldset>
