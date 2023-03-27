@@ -1,5 +1,5 @@
 <?php
-define('DBCONN', "mysql:host=localhost;dbname=forum");
-define('DBUSER',"root");
-define ('DBPASS',"");
+define('DBCONN', "mysql:host=cosc360.ok.ubc.ca;dbname=db_17514019");
+define('DBUSER',"17514019");
+define ('DBPASS',"nkemdiche22");
 ?>
