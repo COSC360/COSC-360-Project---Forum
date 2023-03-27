@@ -48,7 +48,7 @@
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             //Get results
             $sql = "select commentID, usernameFK, text, date, likes, profilepic
-                from Comments, Users where Comments.usernameFK=Users.username and postIDFK=".$id;
+                from Comments, Users where Comments.usernameFK=Users.username and Comments.postIDFK=".$id;
             $result = $pdo->query($sql);
             $data = array();
             $i = 0;
@@ -126,7 +126,7 @@
             $pdo = new PDO($connString,$user,$pass);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             //Get results
-            $sql = "select commentIDFK from CommentsLikedBy, Comments where postIDFK=".$postID." and CommentsLikedBy.usernameFK='".$username."'";
+            $sql = "select commentIDFK from CommentsLikedBy, Comments where Comments.postIDFK=".$postID." and CommentsLikedBy.usernameFK='".$username."'";
             $result = $pdo->query($sql);
             $data = array();
             $i = 0;

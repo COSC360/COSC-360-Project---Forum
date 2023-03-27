@@ -48,7 +48,7 @@
             $pdo = new PDO($connString,$user,$pass);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             //Get results
-            $sql = "select id from LikedBy, Posts where LikedBy.postIDFK=Posts.id and usernameFK='".$username."' and boardFK='".getBoard()."'";
+            $sql = "select id from LikedBy, Posts where LikedBy.postIDFK=Posts.id and LikedBy.usernameFK='".$username."' and Posts.boardFK='".getBoard()."'";
             $result = $pdo->query($sql);
             $data = array();
             $i = 0;
