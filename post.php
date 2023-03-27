@@ -22,7 +22,7 @@
             $pdo = new PDO($connString,$user,$pass);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             //Get results
-            $sql = "select * from posts where id=".$id;
+            $sql = "select * from Posts where id=".$id;
             $result = $pdo->query($sql);
             $data = array();
             $row  = $result->fetch();
@@ -48,7 +48,7 @@
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             //Get results
             $sql = "select commentID, usernameFK, text, date, likes, profilepic
-                from comments, users where comments.usernameFK=users.username and postIDFK=".$id;
+                from Comments, Users where Comments.usernameFK=Users.username and postIDFK=".$id;
             $result = $pdo->query($sql);
             $data = array();
             $i = 0;
@@ -76,7 +76,7 @@
             $pdo = new PDO($connString,$user,$pass);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             //Get results
-            $sql = "select profilepic from users where username='".$username."'";
+            $sql = "select profilepic from Users where username='".$username."'";
             $result = $pdo->query($sql);
             $data = $result->fetch();
             $data = $data['profilepic'];
@@ -126,7 +126,7 @@
             $pdo = new PDO($connString,$user,$pass);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             //Get results
-            $sql = "select commentIDFK from comments_liked_by, comments where postIDFK=".$postID." and comments_liked_by.usernameFK='".$username."'";
+            $sql = "select commentIDFK from CommentsLikedBy, Comments where postIDFK=".$postID." and CommentsLikedBy.usernameFK='".$username."'";
             $result = $pdo->query($sql);
             $data = array();
             $i = 0;
@@ -155,7 +155,7 @@
             $pdo = new PDO($connString,$user,$pass);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             //Get results
-            $sql = "select * from liked_by where postIDFK=".$id." and usernameFK='".$username."'";
+            $sql = "select * from LikedBy where postIDFK=".$id." and usernameFK='".$username."'";
             $result = $pdo->query($sql);
             if ($result->rowCount() > 0) { 
                 $value = true;

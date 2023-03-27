@@ -16,11 +16,11 @@
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             //Query 1
-            $sql = "insert into comments_liked_by (commentIDFK, usernameFK) values (".$id.", '".$username."')";
+            $sql = "insert into CommentsLikedBy (commentIDFK, usernameFK) values (".$id.", '".$username."')";
             $count = $pdo->exec($sql);
 
             //Query 2
-            $sql = "update comments set likes=".$number." where commentID=".$id;
+            $sql = "update Comments set likes=".$number." where commentID=".$id;
             $count = $pdo->exec($sql);
 
             //Close Connection

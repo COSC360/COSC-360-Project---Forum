@@ -19,7 +19,7 @@
             $pdo = new PDO($connString,$user,$pass);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             //Get results
-            $sql = "select * from users where username='".$username."'";
+            $sql = "select * from Users where username='".$username."'";
             $result = $pdo->query($sql);
 
             $userData = array();

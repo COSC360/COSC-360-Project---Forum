@@ -24,7 +24,7 @@
             $pdo = new PDO($connString,$user,$pass);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             //Get results
-            $sql = "select profilepic from users where username='".$username."'";
+            $sql = "select profilepic from Users where username='".$username."'";
             $result = $pdo->query($sql);
             $data = $result->fetch();
             $data = $data['profilepic'];
@@ -48,7 +48,7 @@
             $pdo = new PDO($connString,$user,$pass);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             //Get results
-            $sql = "select id from liked_by, posts where liked_by.postIDFK=posts.id and usernameFK='".$username."' and boardFK='".getBoard()."'";
+            $sql = "select id from LikedBy, posts where LikedBy.postIDFK=posts.id and usernameFK='".$username."' and boardFK='".getBoard()."'";
             $result = $pdo->query($sql);
             $data = array();
             $i = 0;

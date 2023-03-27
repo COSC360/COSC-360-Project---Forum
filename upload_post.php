@@ -16,7 +16,7 @@ try {
     $pdo = new PDO($connString,$user,$pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     //Get results
-    $sql = "SHOW TABLE STATUS LIKE 'posts'";
+    $sql = "SHOW TABLE STATUS LIKE 'Posts'";
     $result = $pdo->query($sql);
     $data = $result->fetch();
     $next_increment = $data['Auto_increment'];
@@ -46,7 +46,7 @@ if(isset($_POST['submit'])){
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
                 //Query WITH IMAGE
-                $sql = "insert into posts (username, title, text, image, date, boardFK) values ('".$_POST['username']."', '".$_POST['title']."', '".$_POST['text']."', '".$fileName."', '".$_POST['date']."', '".$_POST['board']."')";
+                $sql = "insert into Posts (username, title, text, image, date, boardFK) values ('".$_POST['username']."', '".$_POST['title']."', '".$_POST['text']."', '".$fileName."', '".$_POST['date']."', '".$_POST['board']."')";
                 print_r($sql);
                 $count = $pdo->exec($sql);
     
@@ -70,7 +70,7 @@ if(isset($_POST['submit'])){
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             //Query WITHOUT IMAGE
-            $sql = "insert into posts (username, title, text, date, boardFK) values ('".$_POST['username']."', '".$_POST['title']."', '".$_POST['text']."', '".$_POST['date']."', '".$_POST['board']."')";
+            $sql = "insert into Posts (username, title, text, date, boardFK) values ('".$_POST['username']."', '".$_POST['title']."', '".$_POST['text']."', '".$_POST['date']."', '".$_POST['board']."')";
             print_r($sql);
             $count = $pdo->exec($sql);
 

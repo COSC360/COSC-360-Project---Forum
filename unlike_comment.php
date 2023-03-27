@@ -16,11 +16,11 @@
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             //Query 1
-            $sql = "delete from comments_liked_by where commentIDFK=".$id." and usernameFK='".$username."'";
+            $sql = "delete from CommentsLikedBy where commentIDFK=".$id." and usernameFK='".$username."'";
             $count = $pdo->exec($sql);
 
             //Query 2
-            $sql = "update comments set likes=".$number." where commentID=".$id;
+            $sql = "update Comments set likes=".$number." where commentID=".$id;
             $count = $pdo->exec($sql);
 
             //Close Connection
