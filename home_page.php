@@ -176,7 +176,7 @@
                     $pdo = new PDO($connString,$user,$pass);
                     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                     //Get results
-                    $sql = "select * from posts where boardFK = '".getBoard()."'";
+                    $sql = "select * from Posts where boardFK = '".getBoard()."'";
                     $result = $pdo->query($sql);
 
                     $posts = array();
