@@ -98,7 +98,7 @@
             echo "<img src=\"images/".$comments[$i]['profilepic']."\" class=\"comment_pic\">";
             echo "<p class=\"comment_date\"><time> ".$comments[$i]['date']."</time></p></div>";
             echo "<div class=\"comment_text\"><h4>".$comments[$i]['usernameFK']."</h4>";
-            echo "<p>".$comments[$i]['text']."</p></div>";
+            echo "<p>".$comments[$i]['commentText']."</p></div>";
             if($_SESSION['logged_in']==true && isset($_SESSION['username'])){
                 if(in_array($comments[$i]['commentID'],likedComments(($_SESSION['username']),$postID))){
                     echo "<div class=\"comment_likes\"><button type=\"button\" value=\"".$comments[$i]['commentID']."\" class=\"unlike\"><img class=\"liked\" src=\"images/liked.png\"></button>";
@@ -240,7 +240,7 @@
                             echo "<img id=\"post_image\" src=\"images/".$postData['image']."\">";
                         }  
                     ?>
-                    <p id="post_text"> <?php echo $postData['text'] ?></p>
+                    <p id="post_text"> <?php echo $postData['postText'] ?></p>
                 </div>
                 <div id="comments">
                     <?php
