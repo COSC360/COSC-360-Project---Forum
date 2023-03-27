@@ -1,6 +1,6 @@
 * {
     font-family:'Smooch Sans';
-    color: white;
+    color: red;
 }
 
 body {
@@ -28,7 +28,8 @@ h4{
 }
 
 p {
-    font-size: 20px;
+    margin-left: 100px;
+    font-size: 40px;
 }
 
 br{
