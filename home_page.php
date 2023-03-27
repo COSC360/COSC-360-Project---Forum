@@ -79,7 +79,7 @@
             }
             echo    "<div class=\"post_text\">
                         <h3><a href=\"post.php?post=".$posts[$i]['id']."\">".$posts[$i]['title']."</a></h3>
-                        <p>".substr($posts[$i]['text'],0,120)."...</p>
+                        <p>".substr($posts[$i]['text'],0,360)."...</p>
                         <p class=\"post_info\"><time>".$posts[$i]['date']."</time>   POSTED BY: ".$posts[$i]['username']."</p>
                     </div><div class=\"likes\">";
             if(in_array($posts[$i]['id'],$likedPosts)){
