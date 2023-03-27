@@ -53,6 +53,11 @@ button {
     flex-grow: 2;
     top: 1em;
 }
+p{
+    font-size: 20px;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+}
 
 a:link {
     text-decoration: none;
@@ -78,11 +83,12 @@ a:visited {
     background-color:#1E2124;
     padding-top: 1em;
     padding-left: 1em;
+
+    margin-right: 1em;
 }
 
 #profile_pic {
     height: 100px;
-    width: 100px;
     float: right;
     padding-left: 1em;
 }
@@ -120,11 +126,24 @@ a:visited {
 
 #top h2 {
     padding-top: 0.3em;
+    position: relative;
+    right: 2em;
+    top: 0.25em;
 }
 
 #sort_by{
     float: left;
     margin-left: 1em;
+    position: relative;
+    top: 2em;
+    z-index: 3;
+}
+
+.profile_bar{
+    padding-right: 0.2em;
+    top: 0.5em;
+    font-size: 32px;
+    position:relative;
 }
 
 .post {
@@ -135,11 +154,13 @@ a:visited {
     display: flex;
     justify-content: flex-start;
     align-items: stretch;
-    margin-top: 1.5em;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
 }
 
 .post_image{
-    height: inherit;
+    height: 90%;
+    margin:auto;
 }
 
 .post_text {
@@ -148,21 +169,32 @@ a:visited {
     margin-top: 1em;
 }
 
-.likes {
-    height: inherit;
-    margin-right: 2em;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    font-size: 28px;
+.post_info {
+    margin-top: 0.5em;
 }
 
 .hidden {
     display: none;
 }
 
-.no_like {
-    height: 100%;
+.like_num{
+    font-size: 28px;
+    position: relative;
+    left:0.35em;
+}
+
+.likes {
+    height: inherit;
+    margin-right: 2em;
+    margin-left: 0.25em;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 28px;
+}
+
+.not_liked {
+    height: 80%;
     flex-grow: 2;
     top: 1em;
     padding-top: 2em;
@@ -170,7 +202,7 @@ a:visited {
 }
 
 .liked {
-    height: 100%;
+    height: 80%;
     flex-grow: 2;
     top: 1em;
     padding-top: 2em;

@@ -1,0 +1,115 @@
+* {
+    font-family:'Smooch Sans';
+    color: white;
+}
+
+body {
+    background-color:#1E2124;
+    height: 60%;
+}
+
+footer {
+    position:absolute;
+    bottom: 1em;
+    width: inherit;
+    padding-left: 2em;
+}
+
+h1 {
+    font-size: 48px;   
+    margin: 0px;
+}
+
+h2 {
+    font-size: 40px;
+}
+
+h3 {
+    font-size: 28px;
+    margin:0;
+}
+
+p{
+    font-size: 28px;
+}
+
+label {
+    font-size: 28px;
+}
+
+select {
+    background-color: black;
+    color: white;
+    width: 100px;
+    height: 30px;
+    font-size: 24px;
+}
+
+input[type="text"], textarea{
+    background-color: #D9D9D9;
+    color:#1E2124;
+    font-size: 28px;
+    display: block;
+    width: 100%;
+    resize: vertical;
+}
+
+input[type="file"], textarea{
+    background-color: #D9D9D9;
+    color:#1E2124;
+    font-size: 18px;
+}
+
+fieldset {
+    border:none;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:active {
+    color: white;
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+#board{
+    width: 200px;
+}
+
+#text{
+    min-height:200px;
+}
+
+#title_input{
+    width:40%;
+}
+
+
+#container {
+    width: 75%;
+}
+
+.button {
+    background-color: #424549;
+    color:white;
+    font-size: 28px;
+    border:none;
+    border-radius: 5px;
+    padding: 0.25em 0.5em 0.25em 0.5em;
+    margin: auto;
+    display: block;
+}
+
+.button:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
