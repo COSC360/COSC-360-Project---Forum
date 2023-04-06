@@ -221,14 +221,14 @@ function getBoardList(){
                             if(isset($_POST["sort"])){
                                     $sort_value=$_POST["sort"];
                                     if($sort_value=='likes'){
-                                        echo "<option value=\"date\">DATE</option>
+                                        echo "<option value=\"postDate\">DATE</option>
                                                 <option value=\"likes\" selected>LIKES</option>";
-                                    }else if($sort_value=='date'){
-                                        echo "<option value=\"date\" selected>DATE</option>
+                                    }else if($sort_value=='postDate'){
+                                        echo "<option value=\"postDate\" selected>DATE</option>
                                                 <option value=\"likes\">LIKES</option>";
                                     }
                             }else{
-                                echo "<option value=\"date\">DATE</option>
+                                echo "<option value=\"postDate\">DATE</option>
                                         <option value=\"likes\" selected>LIKES</option>";
                             }
                             ?>
