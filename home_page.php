@@ -24,10 +24,10 @@
             $pdo = new PDO($connString,$user,$pass);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             //Get results
-            $sql = "select profilepic from Users where username='".$username."'";
+            $sql = "select profilePic from Users where username='".$username."'";
             $result = $pdo->query($sql);
             $data = $result->fetch();
-            $data = $data['profilepic'];
+            $data = $data['profilePic'];
             //Close Connection
             $pdo = null;
         }
@@ -110,16 +110,20 @@
     <header id="masthead">
         <h1><a href="home_page.php">HOME</a></h1>
         <div id="profile">
-            <?php 
-                if($_SESSION['logged_in']==true && isset($_SESSION['username'])){
-                    echo "<h1 class=\"profile_bar\"><a href=\"logout.php\">LOG OUT</a>┃</h1>";
-                    echo "<h1 class=\"profile_bar\"><a href=\"make_post.php\">MAKE POST</a>┃</h1>";
-                    echo "<h1 class=\"profile_bar\"><a href=\"account.html\">MY ACCOUNT</a>┃</h1>
-                    <img id=\"profile_pic\" src=\"images/".getProfilePic($_SESSION['username'])."\">";
+        <?php 
+            if(isset($_SESSION['logged_in']) && isset($_SESSION['username'])){
+                if($_SESSION['logged_in']==true){
+                echo "<h1 class=\"profile_bar\"><a href=\"logout.php\">LOG OUT</a>┃</h1>";
+                echo "<h1 class=\"profile_bar\"><a href=\"make_post.php\">MAKE POST</a>┃</h1>";
+                echo "<h1 class=\"profile_bar\"><a href=\"account.html\">MY ACCOUNT</a>┃</h1>
+                <img id=\"profile_pic\" src=\"images/".getProfilePic($_SESSION['username'])."\">";
                 }else{
                     echo "<h1 class=\"profile_bar\"><a href=\"log_in.php\">LOG IN</a></h1>";
                 }
-            ?>
+            }else{
+                echo "<h1 class=\"profile_bar\"><a href=\"log_in.php\">LOG IN</a></h1>";
+            }
+        ?>
         </div>
     </header>
     <div id="main">
