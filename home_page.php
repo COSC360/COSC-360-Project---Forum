@@ -141,8 +141,12 @@ function getBoardList(){
                 echo "<img src=\"images/".$posts[$i]['image']."\" class=\"post_image\">";
             }
             echo "<div class=\"post_text\">";
-            if(isAdmin($_SESSION['username'])){
-                echo "<h3><a href=\"post.php?post=".$posts[$i]['id']."\">".$posts[$i]['title']."</a><button class=\"admin_button\">DELETE</button></h3>";
+            if(isset($_SESSION['username']) && isset($_SESSION['logged_in'])){
+                if(isAdmin($_SESSION['username']) && $_SESSION['logged_in']==true){
+                    echo "<h3><a href=\"post.php?post=".$posts[$i]['id']."\">".$posts[$i]['title']."</a><button class=\"admin_button\">DELETE</button></h3>";
+                }else{
+                    echo "<h3><a href=\"post.php?post=".$posts[$i]['id']."\">".$posts[$i]['title']."</a></h3>";
+                }
             }else{
                 echo "<h3><a href=\"post.php?post=".$posts[$i]['id']."\">".$posts[$i]['title']."</a></h3>";
             }
