@@ -15,6 +15,10 @@ article {
     min-width: 1000px;
 }
 
+.header {
+    text-align: center;
+}
+
 .header p {
     display: inline-block;
     color: white;
@@ -23,8 +27,11 @@ article {
     margin-top: 0;
     margin-bottom: 0;
 }
-.header a {
-    float: right; 
+a #help {
+    float: right;
+}
+a #backPage {
+    float: left; 
 }
 
 .footer {

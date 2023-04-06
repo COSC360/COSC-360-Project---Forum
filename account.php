@@ -1,3 +1,20 @@
+<?php
+    session_start();
+    include("database.php");
+?>
+<?php
+    try {
+        $con = new PDO(DBCONN,DBUSER,DBPASS);
+        $con -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    } catch (\Throwable $e) {
+        echo("Connection Failed ".$e->getMessage()."<br>");
+    }
+    $sql = "SELECT username,firstName,lastName,email,dateJoined FROM Users WHERE username = ?";
+    $stmt = $con ->prepare($sql);
+    $stmt -> bindValue(1,$_SESSION["username"], PDO::PARAM_STR);
+    $stmt -> execute();
+    $result = $stmt -> fetch(PDO::FETCH_ASSOC);
+?>
 <!DOCTYPE html>
 <html>
 
@@ -40,7 +57,7 @@
             <p>Account Profile</p>
             <ul>
                 <li>
-                    <a href="home_page.html"><img id="home" src="images/home.svg" alt="home_button"></a>
+                    <a href="home_page.php"><img id="home" src="images/home.svg" alt="home_button"></a>
                 </li>
                 <li>
                     <a href="#"><img id="search" src="images/search.svg" alt="search_button"></a>
@@ -60,24 +77,29 @@
             </figure>
         </section>
         <section class="userInfo">
-            <p id="username">JD#22489</p>
-            <p id="joinDate">Member Since: 01-01-2023</p>
+            <p id="username"><?php echo($result["username"]);?></p>
+            <p id="joinDate">Member Since: 
+                <?php 
+                    $tstamp = strtotime($result["dateJoined"]); 
+                    echo(date("Y-m-d",$tstamp));
+                ?>
+            </p>
             <form name="accContent">
                 <label for="uname">Username:</label>
-                <input type="text" name="uname" value="JD#22489" readonly>
+                <input type="text" name="uname" value=<?php echo($result["username"]);?> readonly>
                 <br><br>
                 <label for="fname">First Name:</label>
-                <input type="text" name="fname" value="John" readonly>
+                <input type="text" name="fname" value=<?php echo($result["firstName"]);?> readonly>
                 <br><br>
                 <label for="lname">Last Name:</label>
-                <input type="text" name="lname" value="Doe" readonly>
+                <input type="text" name="lname" value=<?php echo($result["lastName"]);?> readonly>
                 <br><br>
                 <label for="postCount">Number of Posts:</label>
                 <input type="number" name="postCount" value="8" readonly>
             </form>
             <button id="editProfile" type="submit" form="accContent" formmethod="post" formaction="#"
                 onclick="location.href = '#'">Edit Profile</button>
-            <button id="saveProfile" type ="submit" form="accContent" onclick="location.href ='#'">Save Changes</button>
+            <button id="saveProfile" type ="submit" form="accContent" formmethod="post" onclick="location.href ='updateAcc.php'">Save Changes</button>
         </section>
         <footer class="footer">
         </footer>

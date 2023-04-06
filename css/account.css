@@ -202,7 +202,7 @@ input[type="number"] {
     margin-left: 3em;
 }
 
-#editProfile {
+#editProfile, #saveProfile {
     color: white;
     background-color: #424549;
     font-size: 28px;
@@ -214,9 +214,12 @@ input[type="number"] {
     margin-left: 3em;
 }
 
-#editProfile:hover {
+#editProfile:hover, #saveProfile:hover {
     text-decoration: underline;
     cursor: pointer;
+}
+#saveProfile {
+    display: none;
 }
 
 /* CSS for javascript */
