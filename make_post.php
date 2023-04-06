@@ -22,8 +22,8 @@
         <fieldset>
             <legend><h1>Make Post</h1></legend>
             <p>
-                <input type="hidden" name="username" id="username" value="<?php echo $_SESSION['username'] ?>">
-                <input type="hidden" name="date" id="date" value="<?php echo date('Y-m-d H:i:s');; ?>">
+                <input type="hidden" name="username" id="username" value="<?php echo $_SESSION['username']; ?>">
+                <input type="hidden" name="date" id="date" value="<?php echo date('Y-m-d H:i:s'); ?>">
             </p> 
             <p>
                <label>TITLE</label><br/>

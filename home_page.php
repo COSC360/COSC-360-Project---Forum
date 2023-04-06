@@ -15,6 +15,37 @@
 ?>
 
 <?php
+function getBoardList(){
+    //Connect to Database
+    try {
+        $connString = DBCONN;
+        $user = DBUSER;
+        $pass = DBPASS;
+        $pdo = new PDO($connString,$user,$pass);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        //Get results
+        $sql = "select * from boards";
+        $result = $pdo->query($sql);
+
+        $data = array();
+        $i = 0;
+    
+        while($row  = $result->fetch()) {
+            $data[$i] = $row;
+            $i++;
+        }
+        //Close Connection
+        $pdo = null;
+    }
+    catch(PDOException $e){ //Catch exception
+        die($e->getMessage());
+    }
+    return $data;
+}
+
+?>
+
+<?php
     function getProfilePic($username){
         try {
             //Create connection
@@ -35,6 +66,35 @@
             die($e->getMessage());
         }
         return $data;
+    }
+?>
+
+<?php
+    function isAdmin($username){
+        $boolean = false;
+        try {
+            //Create connection
+            $connString = DBCONN;
+            $user = DBUSER;
+            $pass = DBPASS;
+            $pdo = new PDO($connString,$user,$pass);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            //Get results
+            $sql = "select role from Users where username='".$username."'";
+            $result = $pdo->query($sql);
+            $data = $result->fetch();
+            $data = $data['role'];
+            //Close Connection
+            $pdo = null;
+            if($data === 'admin' ){
+                $boolean = true;
+            }
+
+        }
+        catch(PDOException $e){ //Catch exception
+            die($e->getMessage());
+        }
+        return $boolean;
     }
 ?>
 
@@ -64,6 +124,9 @@
         }
         return $data;
     }
+?>
+
+<?php
 
     function displayPosts($posts){
         $i=0;
@@ -77,11 +140,15 @@
             if(!empty($posts[$i]['image'])){
                 echo "<img src=\"images/".$posts[$i]['image']."\" class=\"post_image\">";
             }
-            echo    "<div class=\"post_text\">
-                        <h3><a href=\"post.php?post=".$posts[$i]['id']."\">".$posts[$i]['title']."</a></h3>
-                        <p>".substr($posts[$i]['postText'],0,360)."...</p>
-                        <p class=\"post_info\"><time>".$posts[$i]['postDate']."</time>   POSTED BY: ".$posts[$i]['usernameFK']."</p>
-                    </div><div class=\"likes\">";
+            echo "<div class=\"post_text\">";
+            if(isAdmin($_SESSION['username'])){
+                echo "<h3><a href=\"post.php?post=".$posts[$i]['id']."\">".$posts[$i]['title']."</a><button class=\"admin_button\">DELETE</button></h3>";
+            }else{
+                echo "<h3><a href=\"post.php?post=".$posts[$i]['id']."\">".$posts[$i]['title']."</a></h3>";
+            }
+            echo "<p>".substr($posts[$i]['postText'],0,360)."...</p>
+                <p class=\"post_info\"><time>".$posts[$i]['postDate']."</time>   POSTED BY: ".$posts[$i]['usernameFK']."</p>
+                </div><div class=\"likes\">";
             if(in_array($posts[$i]['id'],$likedPosts)){
                 echo "<button type=\"button\" value=\"".$posts[$i]['id']."\" class=\"unlike\"><img class=\"liked\" src=\"images/liked.png\"></button>";
             }else{
@@ -130,13 +197,15 @@
         <article id="sidebar">
             <h2>BOARDS</h2>
             <ul>
-                <li><a href="home_page.php?board=general">#GENERAL<a></li>
-                <li><a href="home_page.php?board=music">#MUSIC</a></li>
-                <li><a href="home_page.php?board=politics">#POLITICS</a></li>
-                <li><a href="home_page.php?board=news">#NEWS</a></li>
-                <li><a href="home_page.php?board=movies">#MOVIES</a></li>
-                <li><a href="home_page.php?board=videogames">#VIDEOGAMES</a></li>
-                <li><a href="home_page.php?board=memes">#MEMES</a></li>
+            <?php
+                $boards = getBoardList();
+                $i=0;
+                while($i<count($boards)){
+                    $iName = $boards[$i]['name'];
+                    echo "<li><a href=\"home_page.php?board=".$iName."\">#".strtoupper($iName)."</a></li>";
+                    $i++;
+                }
+            ?>
             </ul>
         </article>
         <article id="center">

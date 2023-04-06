@@ -1,5 +1,6 @@
 <?php
     session_start();
+    date_default_timezone_set('America/Los_Angeles');
     include "database.php";
 ?>
 
@@ -10,6 +11,37 @@
         $postData = getData($_GET["post"]);
         $postID=$_GET["post"];
     }
+?>
+
+<?php
+function getBoardList(){
+    //Connect to Database
+    try {
+        $connString = DBCONN;
+        $user = DBUSER;
+        $pass = DBPASS;
+        $pdo = new PDO($connString,$user,$pass);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        //Get results
+        $sql = "select * from boards";
+        $result = $pdo->query($sql);
+
+        $data = array();
+        $i = 0;
+    
+        while($row  = $result->fetch()) {
+            $data[$i] = $row;
+            $i++;
+        }
+        //Close Connection
+        $pdo = null;
+    }
+    catch(PDOException $e){ //Catch exception
+        die($e->getMessage());
+    }
+    return $data;
+}
+
 ?>
 
 <?php
@@ -96,7 +128,7 @@
         while($i<count($comments)){
             echo "<article class=\"comment\"><div class=\"comment_profile\">";
             echo "<img src=\"images/".$comments[$i]['profilepic']."\" class=\"comment_pic\">";
-            echo "<p class=\"comment_date\"><time> ".$comments[$i]['date']."</time></p></div>";
+            echo "<p class=\"comment_date\"><time> ".$comments[$i]['postDate']."</time></p></div>";
             echo "<div class=\"comment_text\"><h4>".$comments[$i]['usernameFK']."</h4>";
             echo "<p>".$comments[$i]['commentText']."</p></div>";
             if($_SESSION['logged_in']==true && isset($_SESSION['username'])){
@@ -141,6 +173,24 @@
             die($e->getMessage());
         }
         return $data;
+    }
+?>
+
+<?php 
+    function userCanComment(){
+        echo "<form method=\"POST\" id=\"make_post\" action=\"upload_comment.php\">  
+            <fieldset>
+                <p>
+                    <input type=\"hidden\" name=\"postID\" id=\"postID\" value=\"".$_GET["post"]."\">
+                    <input type=\"hidden\" name=\"username\" id=\"username\" value=\"".$_SESSION['username']."\">
+                    <input type=\"hidden\" name=\"date\" id=\"date\" value=\"".date('Y-m-d H:i:s')."\">
+                </p>
+                <p>
+                    <textarea name=\"text\" rows=\"3\" size=\"75\" class=\"required\" id=\"text\"></textarea>
+                </p>
+                <input type=\"submit\" name=\"submit\" class=\"button\" value=\"comment\"></input>
+            </fieldset>
+        </form>";
     }
 ?>
 
@@ -205,13 +255,15 @@
         <article id="sidebar">
             <h2>BOARDS</h2>
             <ul>
-                <li><a href="home_page.php?board=general">#GENERAL<a></li>
-                <li><a href="home_page.php?board=music">#MUSIC</a></li>
-                <li><a href="home_page.php?board=politics">#POLITICS</a></li>
-                <li><a href="home_page.php?board=news">#NEWS</a></li>
-                <li><a href="home_page.php?board=movies">#MOVIES</a></li>
-                <li><a href="home_page.php?board=videogames">#VIDEOGAMES</a></li>
-                <li><a href="home_page.php?board=memes">#MEMES</a></li>
+            <?php
+                $boards = getBoardList();
+                $i=0;
+                while($i<count($boards)){
+                    $iName = $boards[$i]['name'];
+                    echo "<li><a href=\"home_page.php?board=".$iName."\">#".strtoupper($iName)."<a></li>";
+                    $i++;
+                }
+            ?>
             </ul>
         </article>
         <article id="center">
@@ -243,10 +295,20 @@
                     <p id="post_text"> <?php echo $postData['postText'] ?></p>
                 </div>
                 <div id="comments">
+                    <div id="make_comment">
+                        <?php 
+                            if(isset($_SESSION['logged_in']) && isset($_SESSION['username'])){
+                                if($_SESSION['logged_in']==true){
+                                    userCanComment();
+                            }}
+                        ?>
+                    </div>
+                    <div>
                     <?php
                         $comments = getComments($postID);
                         displayComments($comments,$postID);
                     ?>
+                    </div>
                 </div>
             </div>
         </article>
