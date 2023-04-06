@@ -47,7 +47,7 @@
             $pdo = new PDO($connString,$user,$pass);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             //Get results
-            $sql = "select commentID, usernameFK, text, date, likes, profilepic
+            $sql = "select commentID, usernameFK, commentText, postDate, likes, profilepic
                 from Comments, Users where Comments.usernameFK=Users.username and Comments.postIDFK=".$id;
             $result = $pdo->query($sql);
             $data = array();
@@ -231,7 +231,7 @@
                         <p class="like_number"><?php echo $postData['likes'] ?></p>
                 </div>
                 <h2 id="post_title"><a href="home_page.php?board=<?php echo $postData['boardFK'] ?>">#<?php echo strtoupper($postData['boardFK']) ?></a> > <?php echo strtoupper($postData['title']) ?></h2>
-                <p id="post_by">by <?php echo $postData['username'] ?> (<time> <?php echo $postData['date'] ?></time>)</p>
+                <p id="post_by">by <?php echo $postData['usernameFK'] ?> (<time> <?php echo $postData['postDate'] ?></time>)</p>
             </div>
             <div id="post">
                 <div id="content">
