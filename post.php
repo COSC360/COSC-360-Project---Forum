@@ -14,6 +14,35 @@
 ?>
 
 <?php
+    function isAdmin($username){
+        $boolean = false;
+        try {
+            //Create connection
+            $connString = DBCONN;
+            $user = DBUSER;
+            $pass = DBPASS;
+            $pdo = new PDO($connString,$user,$pass);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            //Get results
+            $sql = "select role from Users where username='".$username."'";
+            $result = $pdo->query($sql);
+            $data = $result->fetch();
+            $data = $data['role'];
+            //Close Connection
+            $pdo = null;
+            if($data === 'admin' ){
+                $boolean = true;
+            }
+
+        }
+        catch(PDOException $e){ //Catch exception
+            die($e->getMessage());
+        }
+        return $boolean;
+    }
+?>
+
+<?php
 function getBoardList(){
     //Connect to Database
     try {
@@ -129,7 +158,15 @@ function getBoardList(){
             echo "<article class=\"comment\"><div class=\"comment_profile\">";
             echo "<img src=\"images/".$comments[$i]['profilepic']."\" class=\"comment_pic\">";
             echo "<p class=\"comment_date\"><time> ".$comments[$i]['postDate']."</time></p></div>";
-            echo "<div class=\"comment_text\"><h4>".$comments[$i]['usernameFK']."</h4>";
+            if(isset($_SESSION['username']) && isset($_SESSION['logged_in'])){
+                if(isAdmin($_SESSION['username']) && $_SESSION['logged_in']==true){
+                    echo "<div class=\"comment_text\"><h4>".$comments[$i]['usernameFK']."<button class=\"admin_button\" value=\"".$comments[$i]['commentID']."\">DELETE</button></h4>";
+                }else{
+                    echo "<div class=\"comment_text\"><h4>".$comments[$i]['usernameFK']."</h4>";
+                }
+            }else{
+                echo "<div class=\"comment_text\"><h4>".$comments[$i]['usernameFK']."</h4>";
+            }
             echo "<p>".$comments[$i]['commentText']."</p></div>";
             if($_SESSION['logged_in']==true && isset($_SESSION['username'])){
                 if(in_array($comments[$i]['commentID'],likedComments(($_SESSION['username']),$postID))){
@@ -306,6 +343,10 @@ function getBoardList(){
                     <div>
                     <?php
                         $comments = getComments($postID);
+                        //sort by most liked
+                        usort($comments, function ($item1, $item2) {
+                            return $item2['likes'] <=> $item1['likes'];
+                        });
                         displayComments($comments,$postID);
                     ?>
                     </div>

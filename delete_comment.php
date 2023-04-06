@@ -3,10 +3,10 @@ session_start();
 include "database.php";
 
 if (isset($_POST["id"])) {
-    delete_post($_POST["id"]);
+    delete_comment($_POST["id"]);
 }
 
-function delete_post($id){
+function delete_comment($id){
     try {
         //Create connection
         $connString = DBCONN;
@@ -16,7 +16,7 @@ function delete_post($id){
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         //Query 1
-        $sql = "delete from posts where id=".$id;
+        $sql = "delete from comments where commentID=".$id;
         $count = $pdo->exec($sql);
 
         //Close Connection

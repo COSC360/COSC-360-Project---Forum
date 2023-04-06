@@ -293,3 +293,20 @@ input[type="text"], textarea{
     text-decoration: underline;
     cursor: pointer;
 }
+
+.admin_button{
+    appearance: none;
+    background-color: #ec5657;
+    border: initial;
+    border-radius: 5px;
+    margin-left: 0.5em;
+    padding: 0.1em;
+    height: 50%;
+    top: 0;
+    font-size: 20px;
+}
+
+.admin_button:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}

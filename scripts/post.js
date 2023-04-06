@@ -20,6 +20,9 @@ $(document).ready(function(){
         .on("click",post_unlike);
     $(".post_like")
         .on("click",post_like);
+
+    $(".admin_button")
+        .on("click",deleteComment);
 });
 
 //Heart image
@@ -114,4 +117,21 @@ function logout(){
         type: 'post',
         success: function(response) {console.log("logged out");}
     });
+}
+
+function deleteComment(){
+    if(confirm("Do you want to delete this comment?")){
+        console.log("yes");
+
+        $.ajax({
+            url: 'delete_comment.php',
+            type: 'post',
+            data: {"id": $(this).attr("value")},
+            success: function(response) {console.log(response);}
+        });
+
+        location.reload();
+    }else{
+        console.log("no");
+    }
 }

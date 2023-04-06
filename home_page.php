@@ -136,14 +136,13 @@ function getBoardList(){
         }
         while($i<count($posts)){
             echo "<div class=\"post\">";
-            echo "<form id=\"like\" method=\"post\"></form>";
             if(!empty($posts[$i]['image'])){
                 echo "<img src=\"images/".$posts[$i]['image']."\" class=\"post_image\">";
             }
             echo "<div class=\"post_text\">";
             if(isset($_SESSION['username']) && isset($_SESSION['logged_in'])){
                 if(isAdmin($_SESSION['username']) && $_SESSION['logged_in']==true){
-                    echo "<h3><a href=\"post.php?post=".$posts[$i]['id']."\">".$posts[$i]['title']."</a><button class=\"admin_button\">DELETE</button></h3>";
+                    echo "<h3><a href=\"post.php?post=".$posts[$i]['id']."\">".$posts[$i]['title']."</a><button class=\"admin_button\" name=\"".$posts[$i]['title']."\" value=\"".$posts[$i]['id']."\">DELETE</button></h3>";
                 }else{
                     echo "<h3><a href=\"post.php?post=".$posts[$i]['id']."\">".$posts[$i]['title']."</a></h3>";
                 }
@@ -240,7 +239,7 @@ function getBoardList(){
                         }
                     ?>
                 <?php
-                    echo "<h2>#".strtoupper(getBoard())."</h2>";
+                    echo "<h2 id=\"board_name\">#".strtoupper(getBoard())."</h2>";
                 ?>
             </div>
             <article id="post_list">
