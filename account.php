@@ -68,7 +68,7 @@
                     echo(date("Y-m-d",$tstamp));
                 ?>
             </p>
-            <form method="post" action="http://localhost/COSC-360-Project---Forum/updateAcc.php" name="accContent">
+            <form method="post" action="updateAcc.php" name="accContent">
                 <label for="uname">Username:</label>
                 <input type="text" name="uname" value=<?php echo($result["username"]);?> readonly>
                 <br><br>
