@@ -175,7 +175,7 @@ function getBoardList(){
                 if($_SESSION['logged_in']==true){
                 echo "<h1 class=\"profile_bar\"><a href=\"logout.php\">LOG OUT</a>┃</h1>";
                 echo "<h1 class=\"profile_bar\"><a href=\"make_post.php\">MAKE POST</a>┃</h1>";
-                echo "<h1 class=\"profile_bar\"><a href=\"account.html\">MY ACCOUNT</a>┃</h1>
+                echo "<h1 class=\"profile_bar\"><a href=\"account.php\">MY ACCOUNT</a>┃</h1>
                 <img id=\"profile_pic\" src=\"".getProfilePic($_SESSION['username'])."\">";
                 }else{
                     echo "<h1 class=\"profile_bar\"><a href=\"log_in.php\">LOG IN</a></h1>";
