@@ -1,3 +1,11 @@
+<?php
+session_start();
+include("database.php");
+if (isset($_SESSION["username"])) {
+    header("Location: http://localhost/COSC-360-Project---Forum/home_page.php"); 
+}
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -11,22 +19,22 @@
 <body>
     <article>
         <header class="header">
-            <a href="#"><img src="images/backArrow.svg" id="backPage" alt="back-arrow" width="50" height="50"></a>
+            <a href="log_in.php"><img src="images/backArrow.svg" id="backPage" alt="back-arrow" width="50" height="50"></a>
             <p>Create Account</p>
             <a href="#"><img src="images/help-circle (1).svg" id="help" alt="help-circle-outline" width="50" height="50"></a>
         </header>
         <section class="articleLeft">
             <figure id="avatar">
                 <img src="images/profile.svg" alt="Profile picture" id="profPic">
-                <form method="post" action="profilePic.php" enctype="multipart/form-data">
+                <form id="profpic" method="post" action="profilePic.php" enctype="multipart/form-data">
                     <input type="file" id="imgUpload" name="userImage">
                 </form>
-                <figcaption class="addPicHolder"><a id="addPic" href="">Add Photo</a></figcaption>
+                <figcaption class="addPicHolder"><a id="addPic" href="#">Add Photo</a></figcaption>
             </figure>
         </section>
         <section class="articleRight">
             <fieldset id="formHolder">
-                <form method="post" action="http://www.randyconnolly.com/tests/process.php" id="info">
+                <form method="post" action="accSetup.php" id="info">
                     <label for="fname">First Name:</label>
                     <br>
                     <input type="text" name="fname" placeholder="Your name">
@@ -118,3 +126,6 @@
 </body>
 
 </html>
+<?php
+
+?>

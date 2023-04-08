@@ -1,3 +1,20 @@
+<?php
+    session_start();
+    include("database.php");
+?>
+<?php
+    try {
+        $con = new PDO(DBCONN,DBUSER,DBPASS);
+        $con -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    } catch (\Throwable $e) {
+        echo("Connection Failed ".$e->getMessage()."<br>");
+    }
+    $sql = "SELECT * FROM Users WHERE username = ?";
+    $stmt = $con ->prepare($sql);
+    $stmt -> bindValue(1,$_SESSION["username"], PDO::PARAM_STR);
+    $stmt -> execute();
+    $result = $stmt -> fetch(PDO::FETCH_ASSOC);
+?>
 <!DOCTYPE html>
 <html>
 
@@ -40,7 +57,7 @@
             <p>Account Profile</p>
             <ul>
                 <li>
-                    <a href="home_page.html"><img id="home" src="images/home.svg" alt="home_button"></a>
+                    <a href="home_page.php"><img id="home" src="images/home.svg" alt="home_button"></a>
                 </li>
                 <li>
                     <a href="#"><img id="search" src="images/search.svg" alt="search_button"></a>
@@ -55,32 +72,42 @@
         </header>
         <section class="avatar">
             <figure>
-                <img src="images/profile_pic.png" alt="Profile picture" id="profPic">
-                <form method="post" action="profilePic.php" enctype="multipart/form-data">
-                    <input type="file" id="imgUpload" name="userImage">
-                </form>
+                <img src=<?php echo($result["profilePic"]);?> alt="Profile picture" id="profPic">
+                <input type="file" id="imgUpload" name="userImage">
                 <figcaption hidden><a id="addPic" href="">Add/Change Photo</a></figcaption>
             </figure>
         </section>
         <section class="userInfo">
-            <p id="username">JD#22489</p>
-            <p id="joinDate">Member Since: 01-01-2023</p>
-            <form name="accContent">
+            <p id="username"><?php echo($result["username"]);?></p>
+            <p id="joinDate">Member Since: 
+                <?php 
+                    $tstamp = strtotime($result["dateJoined"]); 
+                    echo(date("Y-m-d",$tstamp));
+                ?>
+            </p>
+            <form method="post" action="http://localhost/COSC-360-Project---Forum/updateAcc.php" name="accContent">
                 <label for="uname">Username:</label>
-                <input type="text" name="uname" value="JD#22489" readonly>
+                <input type="text" name="uname" value=<?php echo($result["username"]);?> readonly>
                 <br><br>
                 <label for="fname">First Name:</label>
-                <input type="text" name="fname" value="John" readonly>
+                <input type="text" name="fname" value=<?php echo($result["firstName"]);?> readonly>
                 <br><br>
                 <label for="lname">Last Name:</label>
-                <input type="text" name="lname" value="Doe" readonly>
+                <input type="text" name="lname" value=<?php echo($result["lastName"]);?> readonly>
+                <br><br>
+                <label for="bday">Birthday:</label>
+                <input type="text" name="bday" value=<?php echo($result["birthdate"]);?> readonly>
+                <br><br>
+                <label for="email">Email:</label>
+                <input type="text" name="email" value=<?php echo($result["email"]);?> readonly>
                 <br><br>
                 <label for="postCount">Number of Posts:</label>
                 <input type="number" name="postCount" value="8" readonly>
+                <br><br>
+                <button id="editProfile" type="submit" form="accContent">Edit Profile</button>
+                <input id="saveProfile" type ="submit" value="Save Changes">
+                <input id="cancelChanges" type ="button" value="Cancel">
             </form>
-            <button id="editProfile" type="submit" form="accContent" formmethod="post" formaction="#"
-                onclick="location.href = '#'">Edit Profile</button>
-            <button id="saveProfile" type ="submit" form="accContent" onclick="location.href ='#'">Save Changes</button>
         </section>
         <footer class="footer">
         </footer>

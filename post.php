@@ -266,8 +266,8 @@ function getBoardList(){
                 if($_SESSION['logged_in']==true && isset($_SESSION['username'])){
                     echo "<h1 class=\"profile_bar\"><a href=\"logout.php\">LOG OUT</a>┃</h1>";
                     echo "<h1 class=\"profile_bar\"><a href=\"make_post.php\">MAKE POST</a>┃</h1>";
-                    echo "<h1 class=\"profile_bar\"><a href=\"account.html\">MY ACCOUNT</a>┃</h1>
-                    <img id=\"profile_pic\" src=\"images/".getProfilePic($_SESSION['username'])."\">";
+                    echo "<h1 class=\"profile_bar\"><a href=\"account.php\">MY ACCOUNT</a>┃</h1>
+                    <img id=\"profile_pic\" src=\"".getProfilePic($_SESSION['username'])."\">";
                 }else{
                     echo "<h1 class=\"profile_bar\"><a href=\"log_in.php\">LOG IN</a></h1>";
                 }
@@ -305,6 +305,7 @@ function getBoardList(){
                     ?>
                         <p class="like_number"><?php echo $postData['likes'] ?></p>
                 </div>
+
                 <h2 id="post_title"><a href="home_page.php?board=<?php echo $postData['boardFK'] ?>">#<?php echo strtoupper($postData['boardFK']) ?></a> > <?php echo strtoupper($postData['title']) ?>
                 <?php
                 if(isset($_SESSION['username']) && isset($_SESSION['logged_in'])){
@@ -315,6 +316,7 @@ function getBoardList(){
                 ?>
                 </h2>
                 <p id="post_by">by <?php echo $postData['usernameFK'] ?> (<time><?php echo $postData['postDate'] ?></time>)</p>
+
             </div>
             <div id="post">
                 <div id="content">
