@@ -2,7 +2,7 @@
 session_start();
 include("database.php");
 if (isset($_SESSION["username"])) {
-    header("Location: http://localhost/COSC-360-Project---Forum/home_page.php"); 
+    header("Location: home_page.php"); 
 }
 ?>
 
