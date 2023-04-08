@@ -78,6 +78,7 @@ function deletePost(){
         });
 
         location.reload();
+        return false;
     }else{
         console.log("no");
     }

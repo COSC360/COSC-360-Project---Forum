@@ -40,6 +40,10 @@ select {
     font-size: 24px;
 }
 
+select:hover{
+    cursor: pointer;
+}
+
 li {
     word-wrap:break-word;
 }
@@ -78,6 +82,10 @@ a{
 
 h2:hover{
     text-decoration: none;
+}
+
+input:hover{
+    cursor: pointer;
 }
 
 
