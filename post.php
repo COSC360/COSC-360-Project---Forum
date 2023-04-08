@@ -8,9 +8,14 @@
 <?php
     $postData = array();
     $postID;
+    
     if(isset($_GET["post"])){
         $postData = getData($_GET["post"]);
         $postID=$_GET["post"];
+    }
+
+    if(!isset($_SESSION['logged_in'])){
+        $_SESSION['logged_in'] = false;
     }
 ?>
 <?php

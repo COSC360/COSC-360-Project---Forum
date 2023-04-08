@@ -8,6 +8,10 @@
     if(isset($_POST["sort"])){
         $sort_value=$_POST["sort"];
     }
+    
+    if(!isset($_SESSION['logged_in'])){
+        $_SESSION['logged_in'] = false;
+    }
 ?>
 
 <?php
