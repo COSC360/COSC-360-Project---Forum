@@ -14,6 +14,13 @@
     $stmt -> bindValue(1,$_SESSION["username"], PDO::PARAM_STR);
     $stmt -> execute();
     $result = $stmt -> fetch(PDO::FETCH_ASSOC);
+
+    $sql2 = "SELECT COUNT(*) AS postCount FROM Posts WHERE usernameFK = ?";
+    $stmt2 = $con ->prepare($sql);
+    $stmt2 -> bindValue(1,$_SESSION["username"], PDO::PARAM_STR);
+    $stmt2 -> execute();
+    $result2 = $stmt2 -> fetch();
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -102,7 +109,7 @@
                 <input type="text" name="email" value=<?php echo($result["email"]);?> readonly>
                 <br><br>
                 <label for="postCount">Number of Posts:</label>
-                <input type="number" name="postCount" value="8" readonly>
+                <input type="number" name="postCount" value=<?php echo($result2[0]);?> readonly>
                 <br><br>
                 <button id="editProfile" type="submit" form="accContent">Edit Profile</button>
                 <input id="saveProfile" type ="submit" value="Save Changes">
