@@ -16,7 +16,7 @@ function delete_comment($id){
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         //Query 1
-        $sql = "delete from comments where commentID=".$id;
+        $sql = "delete from Comments where commentID=".$id;
         $count = $pdo->exec($sql);
 
         //Close Connection

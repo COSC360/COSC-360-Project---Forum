@@ -16,7 +16,7 @@ function delete_post($id){
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         //Query 1
-        $sql = "delete from posts where id=".$id;
+        $sql = "delete from Posts where id=".$id;
         $count = $pdo->exec($sql);
 
         //Close Connection

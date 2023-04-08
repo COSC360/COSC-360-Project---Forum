@@ -15,9 +15,14 @@
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             //Query WITHOUT IMAGE
-            $sql = "insert into comments (usernameFK, commentText, postDate, postIDFK) values ('".$_POST['username']."', '".$_POST['text']."', '".$_POST['date']."', '".$_POST['postID']."')";
+            $sql = "insert into Comments (usernameFK, commentText, postDate, postIDFK) values (?,?,?,?)";
+            $stmt = $pdo ->prepare($sql);
+            $stmt ->bindValue(1,$_POST['username']);
+            $stmt ->bindValue(2,$_POST['text']);
+            $stmt ->bindValue(3,$_POST['date']);
+            $stmt ->bindValue(4,$_POST['postID']);
             print_r($sql);
-            $count = $pdo->exec($sql);
+            $count = $stmt->execute();
 
             $status = "Uploaded";
             //Close Connection
