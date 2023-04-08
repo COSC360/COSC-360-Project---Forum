@@ -83,7 +83,7 @@ function getBoardList(){
                 <label>IMAGE</label><br/>
                 <input type="file" id="image" name="image" accept="image/*"></input>
             </p>
-            <input type="submit" name="submit" class="button" value="upload"></input>
+            <input type="submit" name="submitbtn" class="button" value="upload"></input>
         </fieldset>
     </form>
     </article>

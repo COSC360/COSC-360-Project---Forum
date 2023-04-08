@@ -28,7 +28,7 @@ catch(PDOException $e){ //Catch exception
     die($e->getMessage());
 }
 
-if(isset($_POST['submit'])){
+if(isset($_POST['submitbtn'])){
     if(!EMPTY($_FILES["image"]["name"])){
         $fileName = "postimg".$next_increment.".png";
         $targetFilePath = $targetDir.$fileName;
