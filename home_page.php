@@ -129,7 +129,6 @@ function getBoardList(){
             if(!empty($posts[$i]['image'])){
                 echo "<img src=\"images/".$posts[$i]['image']."\" class=\"post_image\">";
             }
-            
             echo "<div class=\"post_text\">";
             if(isset($_SESSION['username']) && isset($_SESSION['logged_in'])){
                 if($isAdmin && $_SESSION['logged_in']==true){
@@ -143,7 +142,6 @@ function getBoardList(){
             echo "<p class=\"post_text_main\">".substr($posts[$i]['postText'],0,360)."...</p>
                 <p class=\"post_info\"><time>".$posts[$i]['postDate']."</time>   POSTED BY: ".$posts[$i]['usernameFK']."</p>
                 </div><div class=\"likes\">";
-                
             if(in_array($posts[$i]['id'],$likedPosts)){
                 echo "<button type=\"button\" value=\"".$posts[$i]['id']."\" class=\"unlike\"><img class=\"liked\" src=\"images/liked.png\"></button>";
             }else{
@@ -172,17 +170,19 @@ function getBoardList(){
     <header id="masthead">
         <h1><a href="home_page.php">HOME</a>┃<a href="search.php">SEARCH</a></h1>
         <div id="profile">
-        
-            <?php 
-                if($_SESSION['logged_in']==true && isset($_SESSION['username'])){
-                    echo "<h1 class=\"profile_bar\"><a href=\"logout.php\">LOG OUT</a>┃</h1>";
-                    echo "<h1 class=\"profile_bar\"><a href=\"make_post.php\">MAKE POST</a>┃</h1>";
-                    echo "<h1 class=\"profile_bar\"><a href=\"account.php\">MY ACCOUNT</a>┃</h1>
-                    <img id=\"profile_pic\" src=\"".getProfilePic($_SESSION['username'])."\">";
-
+        <?php 
+            if(isset($_SESSION['logged_in']) && isset($_SESSION['username'])){
+                if($_SESSION['logged_in']==true){
+                echo "<h1 class=\"profile_bar\"><a href=\"logout.php\">LOG OUT</a>┃</h1>";
+                echo "<h1 class=\"profile_bar\"><a href=\"make_post.php\">MAKE POST</a>┃</h1>";
+                echo "<h1 class=\"profile_bar\"><a href=\"account.html\">MY ACCOUNT</a>┃</h1>
+                <img id=\"profile_pic\" src=\"".getProfilePic($_SESSION['username'])."\">";
                 }else{
                     echo "<h1 class=\"profile_bar\"><a href=\"log_in.php\">LOG IN</a></h1>";
                 }
+            }else{
+                echo "<h1 class=\"profile_bar\"><a href=\"log_in.php\">LOG IN</a></h1>";
+            }
         ?>
         </div>
     </header>
