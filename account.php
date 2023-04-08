@@ -15,8 +15,8 @@
     $stmt -> execute();
     $result = $stmt -> fetch(PDO::FETCH_ASSOC);
 
-    $sql2 = "SELECT COUNT(*) AS postCount FROM Posts WHERE usernameFK = ?";
-    $stmt2 = $con ->prepare($sql);
+    $sql2 = "SELECT COUNT(*) FROM Posts WHERE usernameFK = ?";
+    $stmt2 = $con ->prepare($sql2);
     $stmt2 -> bindValue(1,$_SESSION["username"], PDO::PARAM_STR);
     $stmt2 -> execute();
     $result2 = $stmt2 -> fetch();
