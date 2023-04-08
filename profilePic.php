@@ -16,7 +16,6 @@ function getNextIncrement() {
         $result = $pdo->query($sql);
         $data = $result->fetch();
         $next_increment = $data['Auto_increment'];
-        print_r($next_increment);
         //Close Connection
         $pdo = null;
     }
@@ -77,7 +76,7 @@ if(isset($_SESSION["username"])) {
     else {
         // For a newly created account is created
         $targetDir ="images/";
-        $filename = "profilepic_newuser".getNextIncrement().".png";
+        $filename = "profilepic_user".getNextIncrement().".png";
         $filePath = $targetDir.$filename;
         $uploadOk = 1;
 
