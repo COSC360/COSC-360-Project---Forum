@@ -3,6 +3,29 @@ window.addEventListener("DOMContentLoaded", function(e) {
 
     var log_out = $("#log_out");
     log_out.addClass("selected");
+
+    var form = document.getElementById("make_post");
+    var inputs = document.getElementsByClassName("required");
+
+    form.addEventListener('submit', function(event) {
+        console.log('submitted');
+
+        valid = false;
+    
+        if (inputs[0].value != "" ) {
+            valid = true;
+        }
+            
+        console.log("valid="+valid);
+
+        if (valid == false) {
+            event.preventDefault();
+            alert("Write some text before commenting.");
+        }
+        else{
+            form.submit();
+        }
+    });
 });
 
 $(document).ready(function(){
@@ -25,6 +48,7 @@ $(document).ready(function(){
         .on("click",deleteComment);
     $(".admin_button_post")
         .on("click",deletePost);
+
 });
 
 //Heart image
@@ -133,6 +157,7 @@ function deleteComment(){
         });
 
         location.reload();
+        return false;
     }else{
         console.log("no");
     }
