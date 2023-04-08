@@ -12,34 +12,35 @@
         $postID=$_GET["post"];
     }
 ?>
-
 <?php
-    function isAdmin($username){
-        $boolean = false;
-        try {
-            //Create connection
-            $connString = DBCONN;
-            $user = DBUSER;
-            $pass = DBPASS;
-            $pdo = new PDO($connString,$user,$pass);
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            //Get results
-            $sql = "select role from Users where username='".$username."'";
-            $result = $pdo->query($sql);
-            $data = $result->fetch();
-            $data = $data['role'];
-            //Close Connection
-            $pdo = null;
-            if($data === 'admin' ){
-                $boolean = true;
-            }
+//Check if user has admin rights
+    $isAdmin = false;
+    if(isset($_SESSION['username']) && isset($_SESSION['logged_in'])){
+        if($_SESSION['logged_in']==true){
+            try {
+                //Create connection
+                $connString = DBCONN;
+                $user = DBUSER;
+                $pass = DBPASS;
+                $pdo = new PDO($connString,$user,$pass);
+                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                //Get results
+                $sql = "select role from Users where username='".$_SESSION['username']."'";
+                $result = $pdo->query($sql);
+                $data = $result->fetch();
+                $data = $data['role'];
+                //Close Connection
+                $pdo = null;
+                if($data === 'admin' ){
+                    $isAdmin = true;
+                }
 
+            }
+            catch(PDOException $e){ //Catch exception
+                die($e->getMessage());
+            } 
         }
-        catch(PDOException $e){ //Catch exception
-            die($e->getMessage());
-        }
-        return $boolean;
-    }
+    } 
 ?>
 
 <?php
@@ -152,14 +153,14 @@ function getBoardList(){
 ?>
 
 <?php
-    function displayComments($comments,$postID){
+    function displayComments($comments,$postID, $isAdmin){
         $i=0;
         while($i<count($comments)){
             echo "<article class=\"comment\"><div class=\"comment_profile\">";
             echo "<img src=\"images/".$comments[$i]['profilepic']."\" class=\"comment_pic\">";
             echo "<p class=\"comment_date\"><time> ".$comments[$i]['postDate']."</time></p></div>";
             if(isset($_SESSION['username']) && isset($_SESSION['logged_in'])){
-                if(isAdmin($_SESSION['username']) && $_SESSION['logged_in']==true){
+                if($isAdmin && $_SESSION['logged_in']==true){
                     echo "<div class=\"comment_text\"><h4>".$comments[$i]['usernameFK']."<button class=\"admin_button\" value=\"".$comments[$i]['commentID']."\">DELETE</button></h4>";
                 }else{
                     echo "<div class=\"comment_text\"><h4>".$comments[$i]['usernameFK']."</h4>";
@@ -274,7 +275,7 @@ function getBoardList(){
 </head>
 <body>
     <header id="masthead">
-        <h1><a href="home_page.php">HOME</a></h1>
+        <h1><a href="home_page.php">HOME</a>┃<a href="search.php">SEARCH</a></h1>
         <div id="profile">
             <?php 
                 if($_SESSION['logged_in']==true && isset($_SESSION['username'])){
@@ -319,8 +320,16 @@ function getBoardList(){
                     ?>
                         <p class="like_number"><?php echo $postData['likes'] ?></p>
                 </div>
-                <h2 id="post_title"><a href="home_page.php?board=<?php echo $postData['boardFK'] ?>">#<?php echo strtoupper($postData['boardFK']) ?></a> > <?php echo strtoupper($postData['title']) ?></h2>
-                <p id="post_by">by <?php echo $postData['usernameFK'] ?> (<time> <?php echo $postData['postDate'] ?></time>)</p>
+                <h2 id="post_title"><a href="home_page.php?board=<?php echo $postData['boardFK'] ?>">#<?php echo strtoupper($postData['boardFK']) ?></a> > <?php echo strtoupper($postData['title']) ?>
+                <?php
+                if(isset($_SESSION['username']) && isset($_SESSION['logged_in'])){
+                    if($isAdmin && $_SESSION['logged_in']==true){
+                        echo "<button class=\"admin_button_post\" value=\"".$postID."\">DELETE</button></h4>";
+                    }
+                }            
+                ?>
+                </h2>
+                <p id="post_by">by <?php echo $postData['usernameFK'] ?> (<time><?php echo $postData['postDate'] ?></time>)</p>
             </div>
             <div id="post">
                 <div id="content">
@@ -347,7 +356,7 @@ function getBoardList(){
                         usort($comments, function ($item1, $item2) {
                             return $item2['likes'] <=> $item1['likes'];
                         });
-                        displayComments($comments,$postID);
+                        displayComments($comments,$postID, $isAdmin);
                     ?>
                     </div>
                 </div>

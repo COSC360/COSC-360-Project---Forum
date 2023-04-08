@@ -54,6 +54,10 @@ fieldset {
     border:none;
 }
 
+a{
+    color:#3f7ed5;
+}
+
 input[type="text"], textarea{
     background-color: #D9D9D9;
     color:#1E2124;

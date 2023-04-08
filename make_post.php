@@ -17,6 +17,7 @@
     <script type="text/javascript" src="scripts/make_post.js"></script>
 </head>
 <body>
+    <h1><a href="home_page.php">HOME</a>
     <article id="container" class="centered">
     <form method="POST" id="make_post" action="upload_post.php" enctype="multipart/form-data">
         <fieldset>

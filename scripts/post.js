@@ -23,6 +23,8 @@ $(document).ready(function(){
 
     $(".admin_button")
         .on("click",deleteComment);
+    $(".admin_button_post")
+        .on("click",deletePost);
 });
 
 //Heart image
@@ -131,6 +133,23 @@ function deleteComment(){
         });
 
         location.reload();
+    }else{
+        console.log("no");
+    }
+}
+
+function deletePost(){
+    if(confirm("Do you want to delete this post?")){
+        console.log("yes");
+
+        $.ajax({
+            url: 'delete_post.php',
+            type: 'post',
+            data: {"id": $(this).attr("value")},
+            success: function(response) {console.log(response);}
+        });
+
+        window.location = 'home_page.php';
     }else{
         console.log("no");
     }
