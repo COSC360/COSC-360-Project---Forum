@@ -46,9 +46,16 @@ if(isset($_POST['submit'])){
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
                 //Query WITH IMAGE
-                $sql = "insert into Posts (usernameFK, title, postText, image, postDate, boardFK) values ('".$_POST['username']."', '".$_POST['title']."', '".$_POST['text']."', '".$fileName."', '".$_POST['date']."', '".$_POST['board']."')";
+                $sql = "insert into Posts (usernameFK, title, postText, image, postDate, boardFK) values (?,?,?,?,?,?)";
+                $pstmt = $pdo->prepare($sql);
+                $pstmt -> bindValue(1,$_POST['username']);
+                $pstmt -> bindValue(2,$_POST['title']);
+                $pstmt -> bindValue(3,$_POST['text']);
+                $pstmt -> bindValue(4,$fileName);
+                $pstmt -> bindValue(5,$_POST['date']);
+                $pstmt -> bindValue(6,$_POST['board']);
                 print_r($sql);
-                $count = $pdo->exec($sql);
+                $count = $pstmt->execute();
     
                 $status ="Uploaded with image";
                 //Close Connection
@@ -70,9 +77,16 @@ if(isset($_POST['submit'])){
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             //Query WITHOUT IMAGE
-            $sql = "insert into Posts (usernameFK, title, postText, postDate, boardFK) values ('".$_POST['username']."', '".$_POST['title']."', '".$_POST['text']."', '".$_POST['date']."', '".$_POST['board']."')";
-            print_r($sql);
-            $count = $pdo->exec($sql);
+            $sql = "insert into Posts (usernameFK, title, postText, postDate, boardFK) values (?,?,?,?,?)";
+                $pstmt = $pdo->prepare($sql);
+                $pstmt -> bindValue(1,$_POST['username']);
+                $pstmt -> bindValue(2,$_POST['title']);
+                $pstmt -> bindValue(3,$_POST['text']);
+                $pstmt -> bindValue(4,$_POST['date']);
+                $pstmt -> bindValue(5,$_POST['board']);
+                print_r($sql);
+                $count = $pstmt->execute();
+    
 
             $status ="Uploaded without image";
             //Close Connection
