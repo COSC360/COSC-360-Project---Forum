@@ -1,6 +1,37 @@
 <?php
     session_start();
     date_default_timezone_set('America/Los_Angeles');
+    require 'database.php';
+?>
+
+<?php
+function getBoardList(){
+    //Connect to Database
+    try {
+        $connString = DBCONN;
+        $user = DBUSER;
+        $pass = DBPASS;
+        $pdo = new PDO($connString,$user,$pass);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        //Get results
+        $sql = "select * from boards";
+        $result = $pdo->query($sql);
+
+        $data = array();
+        $i = 0;
+    
+        while($row  = $result->fetch()) {
+            $data[$i] = $row;
+            $i++;
+        }
+        //Close Connection
+        $pdo = null;
+    }
+    catch(PDOException $e){ //Catch exception
+        die($e->getMessage());
+    }
+    return $data;
+}
 ?>
 
 <!DOCTYPE html>
@@ -33,13 +64,15 @@
             <p>
                <label>BOARD</label><br/>
                <select name="board" id="board">
-                  <option value="general">#GENERAL</option>
-                  <option value="music">#MUSIC</option>
-                  <option value="politics">#POLITICS</option>
-                  <option value="news">#NEWS</option>
-                  <option value="movies">#MOVIES</option>
-                  <option value="videogames">#VIDEOGAMES</option>
-                  <option value="memes">#MEMES</option>
+               <?php
+                $boards = getBoardList();
+                $i=0;
+                while($i<count($boards)){
+                    $iName = $boards[$i]['name'];
+                    echo "<option value=\"".$iName."\">#".strtoupper($iName)."</option>";
+                    $i++;
+                }
+                ?>
                </select>
             </p>
             <p>

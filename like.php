@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include "database.php";
+    require "database.php";
     
     if (isset($_POST["id"]) && isset($_POST["number"])) {
         echo update_like($_POST["id"], $_SESSION['username'], $_POST["number"]);

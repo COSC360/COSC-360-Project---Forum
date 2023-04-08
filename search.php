@@ -1,6 +1,7 @@
 <?php
     session_start();
-    include "database.php";
+    require "database.php";
+    require "isAdmin.php";
 ?>
 
 <?php
@@ -34,30 +35,9 @@
     $isAdmin = false;
     if(isset($_SESSION['username']) && isset($_SESSION['logged_in'])){
         if($_SESSION['logged_in']==true){
-            try {
-                //Create connection
-                $connString = DBCONN;
-                $user = DBUSER;
-                $pass = DBPASS;
-                $pdo = new PDO($connString,$user,$pass);
-                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                //Get results
-                $sql = "select role from Users where username='".$_SESSION['username']."'";
-                $result = $pdo->query($sql);
-                $data = $result->fetch();
-                $data = $data['role'];
-                //Close Connection
-                $pdo = null;
-                if($data === 'admin' ){
-                    $isAdmin = true;
-                }
-
-            }
-            catch(PDOException $e){ //Catch exception
-                die($e->getMessage());
-            } 
+            $isAdmin=isAdmin($_SESSION['username']);
         }
-    } 
+    }
 ?>
 
 <?php

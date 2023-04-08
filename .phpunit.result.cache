@@ -1,0 +1,1 @@
+{"version":1,"defects":{"Warning":6,"tests\\unit\\LogInTest::test_it_log_ins_succesfully":4,"tests\\unit\\LogInTest::test":4,"tests\\unit\\LogInTest::test_isAdmin":5},"times":{"Warning":0.004,"tests\\unit\\LogInTest::test_it_log_ins_succesfully":0.004,"tests\\unit\\LogInTest::test":0.004,"tests\\unit\\LogInTest::test_isAdmin":0.008}}

@@ -1,7 +1,7 @@
 <?php
     session_start();
     date_default_timezone_set('America/Los_Angeles');
-    include "database.php";
+    require "database.php";
 
     $status='empty';
 

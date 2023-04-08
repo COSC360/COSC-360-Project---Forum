@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "database.php";
+require "database.php";
 
 if (isset($_POST["id"])) {
     delete_post($_POST["id"]);
