@@ -15,6 +15,10 @@ article {
     min-width: 1000px;
 }
 
+.header {
+    text-align: center;
+}
+
 .header p {
     display: inline-block;
     color: white;
@@ -23,8 +27,11 @@ article {
     margin-top: 0;
     margin-bottom: 0;
 }
-.header a {
-    float: right; 
+a #help {
+    float: right;
+}
+a #backPage {
+    float: left; 
 }
 
 .footer {
@@ -49,6 +56,13 @@ article {
     width: 400px;
 }
 
+#avatar #profPic {
+    border-radius: 50%; 
+    height: 400px;
+    width: 400px;
+    text-align: center;
+ }
+
 #addPic > figure {
     text-align: center;
 }
@@ -57,6 +71,10 @@ article {
 }
 #addPic:visited {
     text-decoration: none;
+}
+
+#imgUpload {
+    display: none;
 }
 
 .articleRight {

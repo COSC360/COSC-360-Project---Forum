@@ -1,11 +1,9 @@
 DROP TABLE IF EXISTS LikedBy;
 DROP TABLE IF EXISTS CommentsLikedBy;
-DROP TABLE IF EXISTS CommentsLikedBy;
-DROP TABLE IF EXISTS Commments;
+DROP TABLE IF EXISTS Comments;
 DROP TABLE IF EXISTS Posts;
-DROP TABLE IF EXISTS Boards;
 DROP TABLE IF EXISTS Users;
-
+DROP TABLE IF EXISTS Boards;
 
 
 CREATE TABLE Users (
@@ -18,13 +16,14 @@ CREATE TABLE Users (
 	birthdate DATE,
 	role VARCHAR(5) NOT NULL,
 	dateJoined TIMESTAMP,
-	profilePic VARCHAR(255) DEFAULT "profile_pic.png",
+	profilePic VARCHAR(255) DEFAULT "images/profile.svg",
 	PRIMARY KEY(userID),
+	KEY username (username),
 	UNIQUE(username)
 );
 
 CREATE TABLE Boards (
-	name VARCHAR(10) NOT NULL,
+	name VARCHAR(25) NOT NULL,
 	PRIMARY KEY(name)
 );
 
@@ -58,10 +57,10 @@ CREATE TABLE Comments (
 	PRIMARY KEY(commentID),
 	KEY usernameFK (usernameFK),
 	KEY postIDFK (postIDFK),
-	FOREIGN KEY(postIDFK) REFERENCES Posts(id)
+	FOREIGN KEY (postIDFK) REFERENCES Posts(id)
 								ON DELETE CASCADE
 								ON UPDATE CASCADE,
-	FOREIGN KEY(usernameFK) REFERENCES Users(username)
+	FOREIGN KEY (usernameFK) REFERENCES Users(username)
 								ON DELETE CASCADE
 								ON UPDATE CASCADE
 );
@@ -74,7 +73,7 @@ CREATE TABLE CommentsLikedBy (
 	FOREIGN KEY(commentIDFK) REFERENCES Comments(commentID)
 								ON DELETE CASCADE
 								ON UPDATE CASCADE,
-	FOREIGN KEY(usernameFK) REFERENCES Users(username)
+	FOREIGN KEY (usernameFK) REFERENCES Users(username)
 								ON DELETE CASCADE
 								ON UPDATE CASCADE
 );	
@@ -84,10 +83,10 @@ CREATE TABLE LikedBy (
 	usernameFK VARCHAR(20) NOT NULL,
 	KEY postIDFK (postIDFK),
 	KEY usernameFK (usernameFK),
-	FOREIGN KEY(usernameFK) REFERENCES Users(username)
+	FOREIGN KEY (usernameFK) REFERENCES Users(username)
 								ON DELETE CASCADE
 								ON UPDATE CASCADE,
-	FOREIGN KEY(postIDFK) REFERENCES Posts(id)
+	FOREIGN KEY (postIDFK) REFERENCES Posts(id)
 								ON DELETE CASCADE
 								ON UPDATE CASCADE
 );
@@ -103,3 +102,13 @@ INSERT INTO Users (username, firstName, lastName, email, password, birthdate, ro
 INSERT INTO Users (username, firstName, lastName, email, password, birthdate, role, dateJoined) VALUES ('liltommyNguyen', 'Tommy', 'Nguyen', 'tommy.nguyen@outlook.com', MD5('rugrat99'), '2004-03-19', 'user', '2019-03-20 16:40:45');
 INSERT INTO Users (username, firstName, lastName, email, password, birthdate, role, dateJoined) VALUES ('lisajackson', 'Lisa', 'Jackson', 'lisa.jackson@outlook.com', MD5('outkast2000'), '2001-09-05', 'user', '2023-02-24 18:20:30');
 
+
+INSERT INTO Boards VALUES ("general");
+INSERT INTO Boards VALUES ("music");
+INSERT INTO Boards VALUES ("politics");
+INSERT INTO Boards VALUES ("news");
+INSERT INTO Boards VALUES ("movies");
+INSERT INTO Boards VALUES ("videogames");
+INSERT INTO Boards VALUES ("memes");
+
+--INSERT INTO Posts (usernameFK, title, postText, postDate, boardFK) VALUES ("johndoe","Test Post 1", "Just a test post to see","2023-04-06 12:53:20","General");

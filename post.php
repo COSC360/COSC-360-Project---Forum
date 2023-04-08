@@ -300,6 +300,7 @@ function getBoardList(){
                     ?>
                         <p class="like_number"><?php echo $postData['likes'] ?></p>
                 </div>
+
                 <h2 id="post_title"><a href="home_page.php?board=<?php echo $postData['boardFK'] ?>">#<?php echo strtoupper($postData['boardFK']) ?></a> > <?php echo strtoupper($postData['title']) ?>
                 <?php
                 if(isset($_SESSION['username']) && isset($_SESSION['logged_in'])){
@@ -310,6 +311,7 @@ function getBoardList(){
                 ?>
                 </h2>
                 <p id="post_by">by <?php echo $postData['usernameFK'] ?> (<time><?php echo $postData['postDate'] ?></time>)</p>
+
             </div>
             <div id="post">
                 <div id="content">
