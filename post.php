@@ -142,7 +142,7 @@ function getBoardList(){
         $i=0;
         while($i<count($comments)){
             echo "<article class=\"comment\"><div class=\"comment_profile\">";
-            echo "<img src=\"images/".$comments[$i]['profilepic']."\" class=\"comment_pic\">";
+            echo "<img src=\"".$comments[$i]['profilepic']."\" class=\"comment_pic\">";
             echo "<p class=\"comment_date\"><time> ".$comments[$i]['postDate']."</time></p></div>";
             if(isset($_SESSION['username']) && isset($_SESSION['logged_in'])){
                 if($isAdmin && $_SESSION['logged_in']==true){
