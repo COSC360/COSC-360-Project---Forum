@@ -39,21 +39,6 @@
                     <span class="iconText">Account Details</span>
                 </a>
             </li>
-            <li>
-                <a href="#"><img id="sysPref" src="images/settings.svg" alt="cog_wheel">
-                    <span class="iconText">System Preferences</span>
-                </a>
-            </li>
-            <li>
-                <a href="#"><img id="notificationSettings" src="images/alert.svg" alt="bell_icon">
-                    <span class="iconText">Notification Settings</span>
-                </a>
-            </li>
-            <li>
-                <a href="#"><img id="options" src="images/more-circle.svg" alt="enclosed__i">
-                    <span class="iconText">Options</span>
-                </a>
-            </li>
         </ul>
     </div>
     <article>
@@ -65,15 +50,6 @@
             <ul>
                 <li>
                     <a href="home_page.php"><img id="home" src="images/home.svg" alt="home_button"></a>
-                </li>
-                <li>
-                    <a href="#"><img id="search" src="images/search.svg" alt="search_button"></a>
-                </li>
-                <li>
-                    <a href="#"><img id="dm" src="images/chat.svg" alt="direct_message_button"></a>
-                </li>
-                <li>
-                    <a href="#"><img id="notification" src="images/alert.svg" alt="notification_button"></a>
                 </li>
             </ul>
         </header>

@@ -21,7 +21,6 @@ if (isset($_SESSION["username"])) {
         <header class="header">
             <a href="log_in.php"><img src="images/backArrow.svg" id="backPage" alt="back-arrow" width="50" height="50"></a>
             <p>Create Account</p>
-            <a href="#"><img src="images/help-circle (1).svg" id="help" alt="help-circle-outline" width="50" height="50"></a>
         </header>
         <section class="articleLeft">
             <figure id="avatar">
