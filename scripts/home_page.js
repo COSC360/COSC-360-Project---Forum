@@ -7,11 +7,13 @@ $(document).ready(function(){
         .on("click",liked);
     $(".liked")
         .on("click",unliked);   
-
     $(".unlike")
         .on("click",unlike);
     $(".like")
         .on("click",like);
+
+    $(".admin_button")
+        .on("click",deletePost);
 });
 
 function liked(){
@@ -62,4 +64,21 @@ function like(){
         data: {"id": $(this).attr("value"), "number": likeNum},
         success: function(response) {console.log(response);}
     });
+}
+
+function deletePost(){
+    if(confirm("Do you want to delete this post: '"+$(this).attr('name')+"' ?")){
+        console.log("yes");
+
+        $.ajax({
+            url: 'delete_post.php',
+            type: 'post',
+            data: {"id": $(this).attr("value")},
+            success: function(response) {console.log(response);}
+        });
+
+        location.reload();
+    }else{
+        console.log("no");
+    }
 }

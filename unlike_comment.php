@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include "database.php";
+    require "database.php";
     
     if (isset($_POST["commentID"]) && isset($_POST["number"])) {
         echo update_like($_POST["commentID"], $_SESSION['username'], $_POST["number"]);

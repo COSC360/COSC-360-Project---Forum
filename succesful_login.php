@@ -2,13 +2,13 @@
     session_start();
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         if(isset($_POST["username"])){
-            $_SESSION['logged_in']=true;
-            $_SESSION['username']=$_POST['username'];
-            echo success();
+            echo success($_POST['username']);
         }
     }
 
-    function success(){
-        return "sucess";
+    function success($username){
+        $_SESSION['logged_in']=true;
+        $_SESSION['username']=$username;
+        return "sucess: ".$username;
     }
 ?>

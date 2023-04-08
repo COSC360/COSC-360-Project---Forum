@@ -1,6 +1,8 @@
 <?php
     session_start();
-    include "database.php";
+    date_default_timezone_set('America/Los_Angeles');
+    require "database.php";
+    require "isAdmin.php";
 ?>
 
 <?php
@@ -10,6 +12,46 @@
         $postData = getData($_GET["post"]);
         $postID=$_GET["post"];
     }
+?>
+<?php
+//Check if user has admin rights
+    $isAdmin = false;
+    if(isset($_SESSION['username']) && isset($_SESSION['logged_in'])){
+        if($_SESSION['logged_in']==true){
+            $isAdmin=isAdmin($_SESSION['username']);
+        }
+    }
+?>
+
+<?php
+function getBoardList(){
+    //Connect to Database
+    try {
+        $connString = DBCONN;
+        $user = DBUSER;
+        $pass = DBPASS;
+        $pdo = new PDO($connString,$user,$pass);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        //Get results
+        $sql = "select * from boards";
+        $result = $pdo->query($sql);
+
+        $data = array();
+        $i = 0;
+    
+        while($row  = $result->fetch()) {
+            $data[$i] = $row;
+            $i++;
+        }
+        //Close Connection
+        $pdo = null;
+    }
+    catch(PDOException $e){ //Catch exception
+        die($e->getMessage());
+    }
+    return $data;
+}
+
 ?>
 
 <?php
@@ -91,13 +133,21 @@
 ?>
 
 <?php
-    function displayComments($comments,$postID){
+    function displayComments($comments,$postID, $isAdmin){
         $i=0;
         while($i<count($comments)){
             echo "<article class=\"comment\"><div class=\"comment_profile\">";
             echo "<img src=\"images/".$comments[$i]['profilepic']."\" class=\"comment_pic\">";
-            echo "<p class=\"comment_date\"><time> ".$comments[$i]['date']."</time></p></div>";
-            echo "<div class=\"comment_text\"><h4>".$comments[$i]['usernameFK']."</h4>";
+            echo "<p class=\"comment_date\"><time> ".$comments[$i]['postDate']."</time></p></div>";
+            if(isset($_SESSION['username']) && isset($_SESSION['logged_in'])){
+                if($isAdmin && $_SESSION['logged_in']==true){
+                    echo "<div class=\"comment_text\"><h4>".$comments[$i]['usernameFK']."<button class=\"admin_button\" value=\"".$comments[$i]['commentID']."\">DELETE</button></h4>";
+                }else{
+                    echo "<div class=\"comment_text\"><h4>".$comments[$i]['usernameFK']."</h4>";
+                }
+            }else{
+                echo "<div class=\"comment_text\"><h4>".$comments[$i]['usernameFK']."</h4>";
+            }
             echo "<p>".$comments[$i]['commentText']."</p></div>";
             if($_SESSION['logged_in']==true && isset($_SESSION['username'])){
                 if(in_array($comments[$i]['commentID'],likedComments(($_SESSION['username']),$postID))){
@@ -144,6 +194,24 @@
     }
 ?>
 
+<?php 
+    function userCanComment(){
+        echo "<form method=\"POST\" id=\"make_post\" action=\"upload_comment.php\">  
+            <fieldset>
+                <p>
+                    <input type=\"hidden\" name=\"postID\" id=\"postID\" value=\"".$_GET["post"]."\">
+                    <input type=\"hidden\" name=\"username\" id=\"username\" value=\"".$_SESSION['username']."\">
+                    <input type=\"hidden\" name=\"date\" id=\"date\" value=\"".date('Y-m-d H:i:s')."\">
+                </p>
+                <p>
+                    <textarea name=\"text\" rows=\"3\" size=\"75\" class=\"required\" id=\"text\"></textarea>
+                </p>
+                <input type=\"submit\" name=\"submit\" class=\"button\" value=\"comment\"></input>
+            </fieldset>
+        </form>";
+    }
+?>
+
 <?php
     function isPostLiked($id, $username){
         try {
@@ -187,7 +255,7 @@
 </head>
 <body>
     <header id="masthead">
-        <h1><a href="home_page.php">HOME</a></h1>
+        <h1><a href="home_page.php">HOME</a>┃<a href="search.php">SEARCH</a></h1>
         <div id="profile">
             <?php 
                 if($_SESSION['logged_in']==true && isset($_SESSION['username'])){
@@ -205,13 +273,15 @@
         <article id="sidebar">
             <h2>BOARDS</h2>
             <ul>
-                <li><a href="home_page.php?board=general">#GENERAL<a></li>
-                <li><a href="home_page.php?board=music">#MUSIC</a></li>
-                <li><a href="home_page.php?board=politics">#POLITICS</a></li>
-                <li><a href="home_page.php?board=news">#NEWS</a></li>
-                <li><a href="home_page.php?board=movies">#MOVIES</a></li>
-                <li><a href="home_page.php?board=videogames">#VIDEOGAMES</a></li>
-                <li><a href="home_page.php?board=memes">#MEMES</a></li>
+            <?php
+                $boards = getBoardList();
+                $i=0;
+                while($i<count($boards)){
+                    $iName = $boards[$i]['name'];
+                    echo "<li><a href=\"home_page.php?board=".$iName."\">#".strtoupper($iName)."<a></li>";
+                    $i++;
+                }
+            ?>
             </ul>
         </article>
         <article id="center">
@@ -230,8 +300,18 @@
                     ?>
                         <p class="like_number"><?php echo $postData['likes'] ?></p>
                 </div>
-                <h2 id="post_title"><a href="home_page.php?board=<?php echo $postData['boardFK'] ?>">#<?php echo strtoupper($postData['boardFK']) ?></a> > <?php echo strtoupper($postData['title']) ?></h2>
-                <p id="post_by">by <?php echo $postData['usernameFK'] ?> (<time> <?php echo $postData['postDate'] ?></time>)</p>
+
+                <h2 id="post_title"><a href="home_page.php?board=<?php echo $postData['boardFK'] ?>">#<?php echo strtoupper($postData['boardFK']) ?></a> > <?php echo strtoupper($postData['title']) ?>
+                <?php
+                if(isset($_SESSION['username']) && isset($_SESSION['logged_in'])){
+                    if($isAdmin && $_SESSION['logged_in']==true){
+                        echo "<button class=\"admin_button_post\" value=\"".$postID."\">DELETE</button></h4>";
+                    }
+                }            
+                ?>
+                </h2>
+                <p id="post_by">by <?php echo $postData['usernameFK'] ?> (<time><?php echo $postData['postDate'] ?></time>)</p>
+
             </div>
             <div id="post">
                 <div id="content">
@@ -243,10 +323,24 @@
                     <p id="post_text"> <?php echo $postData['postText'] ?></p>
                 </div>
                 <div id="comments">
+                    <div id="make_comment">
+                        <?php 
+                            if(isset($_SESSION['logged_in']) && isset($_SESSION['username'])){
+                                if($_SESSION['logged_in']==true){
+                                    userCanComment();
+                            }}
+                        ?>
+                    </div>
+                    <div>
                     <?php
                         $comments = getComments($postID);
-                        displayComments($comments,$postID);
+                        //sort by most liked
+                        usort($comments, function ($item1, $item2) {
+                            return $item2['likes'] <=> $item1['likes'];
+                        });
+                        displayComments($comments,$postID, $isAdmin);
                     ?>
+                    </div>
                 </div>
             </div>
         </article>

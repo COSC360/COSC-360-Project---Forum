@@ -20,6 +20,11 @@ $(document).ready(function(){
         .on("click",post_unlike);
     $(".post_like")
         .on("click",post_like);
+
+    $(".admin_button")
+        .on("click",deleteComment);
+    $(".admin_button_post")
+        .on("click",deletePost);
 });
 
 //Heart image
@@ -114,4 +119,38 @@ function logout(){
         type: 'post',
         success: function(response) {console.log("logged out");}
     });
+}
+
+function deleteComment(){
+    if(confirm("Do you want to delete this comment?")){
+        console.log("yes");
+
+        $.ajax({
+            url: 'delete_comment.php',
+            type: 'post',
+            data: {"id": $(this).attr("value")},
+            success: function(response) {console.log(response);}
+        });
+
+        location.reload();
+    }else{
+        console.log("no");
+    }
+}
+
+function deletePost(){
+    if(confirm("Do you want to delete this post?")){
+        console.log("yes");
+
+        $.ajax({
+            url: 'delete_post.php',
+            type: 'post',
+            data: {"id": $(this).attr("value")},
+            success: function(response) {console.log(response);}
+        });
+
+        window.location = 'home_page.php';
+    }else{
+        console.log("no");
+    }
 }

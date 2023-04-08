@@ -5,6 +5,7 @@
 
 body {
     background-color:#1E2124;
+    overflow: hidden;
 }
 
 h1 {
@@ -53,10 +54,19 @@ button {
     flex-grow: 2;
     top: 1em;
 }
+
 p{
     font-size: 20px;
     margin-bottom: 0.5em;
     margin-top: 0.5em;
+}
+
+h2:hover{
+    text-decoration: none;
+}
+
+a{
+    color:#3f7ed5;
 }
 
 a:link {
@@ -115,7 +125,7 @@ a:visited {
 
 #post_list {
     overflow: auto;
-    height: 88%;
+    height: 85%;
 }
 
 #top {
@@ -169,6 +179,11 @@ a:visited {
     margin-top: 1em;
 }
 
+.post_text_main{
+    height: 35%;
+    overflow: hidden;
+}
+
 .post_info {
     margin-top: 0.5em;
 }
@@ -207,4 +222,21 @@ a:visited {
     top: 1em;
     padding-top: 2em;
     filter: drop-shadow(3px 3px 1px #0000005d);
+}
+
+.admin_button{
+    appearance: none;
+    background-color: #ec5657;
+    border: initial;
+    border-radius: 5px;
+    margin-left: 0.5em;
+    padding: 0.1em;
+    height: 50%;
+    top: 0;
+    font-size: 20px;
+}
+
+.admin_button:hover{
+    text-decoration: underline;
+    cursor: pointer;
 }

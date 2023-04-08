@@ -1,6 +1,13 @@
 <?php
     session_start();
-    include "database.php";
+    require "database.php";
+    require "isAdmin.php";
+?>
+
+<?php
+    if(isset($_POST["sort"])){
+        $sort_value=$_POST["sort"];
+    }
 ?>
 
 <?php 
@@ -15,6 +22,36 @@
 ?>
 
 <?php
+function getBoardList(){
+    //Connect to Database
+    try {
+        $connString = DBCONN;
+        $user = DBUSER;
+        $pass = DBPASS;
+        $pdo = new PDO($connString,$user,$pass);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        //Get results
+        $sql = "select * from boards";
+        $result = $pdo->query($sql);
+
+        $data = array();
+        $i = 0;
+    
+        while($row  = $result->fetch()) {
+            $data[$i] = $row;
+            $i++;
+        }
+        //Close Connection
+        $pdo = null;
+    }
+    catch(PDOException $e){ //Catch exception
+        die($e->getMessage());
+    }
+    return $data;
+}
+?>
+
+<?php
     function getProfilePic($username){
         try {
             //Create connection
@@ -24,10 +61,10 @@
             $pdo = new PDO($connString,$user,$pass);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             //Get results
-            $sql = "select profilepic from Users where username='".$username."'";
+            $sql = "select profilePic from Users where username='".$username."'";
             $result = $pdo->query($sql);
             $data = $result->fetch();
-            $data = $data['profilepic'];
+            $data = $data['profilePic'];
             //Close Connection
             $pdo = null;
         }
@@ -35,6 +72,16 @@
             die($e->getMessage());
         }
         return $data;
+    }
+?>
+
+<?php
+//Check if user has admin rights
+    $isAdmin = false;
+    if(isset($_SESSION['username']) && isset($_SESSION['logged_in'])){
+        if($_SESSION['logged_in']==true){
+            $isAdmin=isAdmin($_SESSION['username']);
+        }
     }
 ?>
 
@@ -64,8 +111,10 @@
         }
         return $data;
     }
+?>
 
-    function displayPosts($posts){
+<?php
+    function displayPosts($posts, $isAdmin){
         $i=0;
         $likedPosts = array();
         if(isset($_SESSION["username"])){
@@ -73,15 +122,24 @@
         }
         while($i<count($posts)){
             echo "<div class=\"post\">";
-            echo "<form id=\"like\" method=\"post\"></form>";
             if(!empty($posts[$i]['image'])){
                 echo "<img src=\"images/".$posts[$i]['image']."\" class=\"post_image\">";
             }
-            echo    "<div class=\"post_text\">
-                        <h3><a href=\"post.php?post=".$posts[$i]['id']."\">".$posts[$i]['title']."</a></h3>
-                        <p>".substr($posts[$i]['postText'],0,360)."...</p>
-                        <p class=\"post_info\"><time>".$posts[$i]['postDate']."</time>   POSTED BY: ".$posts[$i]['usernameFK']."</p>
-                    </div><div class=\"likes\">";
+            
+            echo "<div class=\"post_text\">";
+            if(isset($_SESSION['username']) && isset($_SESSION['logged_in'])){
+                if($isAdmin && $_SESSION['logged_in']==true){
+                    echo "<h3><a href=\"post.php?post=".$posts[$i]['id']."\">".$posts[$i]['title']."</a><button class=\"admin_button\" name=\"".$posts[$i]['title']."\" value=\"".$posts[$i]['id']."\">DELETE</button></h3>";
+                }else{
+                    echo "<h3><a href=\"post.php?post=".$posts[$i]['id']."\">".$posts[$i]['title']."</a></h3>";
+                }
+            }else{
+                echo "<h3><a href=\"post.php?post=".$posts[$i]['id']."\">".$posts[$i]['title']."</a></h3>";
+            }
+            echo "<p class=\"post_text_main\">".substr($posts[$i]['postText'],0,360)."...</p>
+                <p class=\"post_info\"><time>".$posts[$i]['postDate']."</time>   POSTED BY: ".$posts[$i]['usernameFK']."</p>
+                </div><div class=\"likes\">";
+                
             if(in_array($posts[$i]['id'],$likedPosts)){
                 echo "<button type=\"button\" value=\"".$posts[$i]['id']."\" class=\"unlike\"><img class=\"liked\" src=\"images/liked.png\"></button>";
             }else{
@@ -108,62 +166,64 @@
 </head>
 <body>
     <header id="masthead">
-        <h1><a href="home_page.php">HOME</a></h1>
+        <h1><a href="home_page.php">HOME</a>┃<a href="search.php">SEARCH</a></h1>
         <div id="profile">
+        
             <?php 
                 if($_SESSION['logged_in']==true && isset($_SESSION['username'])){
                     echo "<h1 class=\"profile_bar\"><a href=\"logout.php\">LOG OUT</a>┃</h1>";
                     echo "<h1 class=\"profile_bar\"><a href=\"make_post.php\">MAKE POST</a>┃</h1>";
                     echo "<h1 class=\"profile_bar\"><a href=\"account.php\">MY ACCOUNT</a>┃</h1>
                     <img id=\"profile_pic\" src=\"".getProfilePic($_SESSION['username'])."\">";
+
                 }else{
                     echo "<h1 class=\"profile_bar\"><a href=\"log_in.php\">LOG IN</a></h1>";
                 }
-            ?>
+            }else{
+                echo "<h1 class=\"profile_bar\"><a href=\"log_in.php\">LOG IN</a></h1>";
+            }
+        ?>
         </div>
     </header>
     <div id="main">
         <article id="sidebar">
             <h2>BOARDS</h2>
             <ul>
-                <li><a href="home_page.php?board=general">#GENERAL<a></li>
-                <li><a href="home_page.php?board=music">#MUSIC</a></li>
-                <li><a href="home_page.php?board=politics">#POLITICS</a></li>
-                <li><a href="home_page.php?board=news">#NEWS</a></li>
-                <li><a href="home_page.php?board=movies">#MOVIES</a></li>
-                <li><a href="home_page.php?board=videogames">#VIDEOGAMES</a></li>
-                <li><a href="home_page.php?board=memes">#MEMES</a></li>
+            <?php
+                $boards = getBoardList();
+                $i=0;
+                while($i<count($boards)){
+                    $iName = $boards[$i]['name'];
+                    echo "<li><a href=\"home_page.php?board=".$iName."\">#".strtoupper($iName)."</a></li>";
+                    $i++;
+                }
+            ?>
             </ul>
         </article>
         <article id="center">
             <div id="top">
-                    <form method="POST" id="sort_by">
-                        <label for="sort">SORT BY:</label>
-                        <select name="sort" id="sort" onchange="this.form.submit()">
-                            <?php 
-                            if(isset($_POST["sort"])){
-                                    $sort_value=$_POST["sort"];
-                                    if($sort_value=='likes'){
-                                        echo "<option value=\"date\">DATE</option>
-                                                <option value=\"likes\" selected>LIKES</option>";
-                                    }else if($sort_value=='date'){
-                                        echo "<option value=\"date\" selected>DATE</option>
-                                                <option value=\"likes\">LIKES</option>";
-                                    }
-                            }else{
-                                echo "<option value=\"date\">DATE</option>
-                                        <option value=\"likes\" selected>LIKES</option>";
-                            }
-                            ?>
-                        </select>
-                    </form>
-                    <?php
+                <form method="POST" id="sort_by">
+                    <label for="sort">SORT BY:</label>
+                    <select name="sort" id="sort" onchange="this.form.submit()">
+                        <?php 
                         if(isset($_POST["sort"])){
-                            $sort_value=$_POST["sort"];
+                                $sort_value=$_POST["sort"];
+                                if($sort_value=='likes'){
+                                    echo "<option value=\"postDate\">DATE</option>
+                                            <option value=\"likes\" selected>LIKES</option>";
+                                }else if($sort_value=='postDate'){
+                                    echo "<option value=\"postDate\" selected>DATE</option>
+                                            <option value=\"likes\">LIKES</option>";
+                                }
+                        }else{
+                            echo "<option value=\"postDate\">DATE</option>
+                                    <option value=\"likes\" selected>LIKES</option>";
                         }
-                    ?>
+                        ?>
+                    </select>
+                </form>
                 <?php
-                    echo "<h2>#".strtoupper(getBoard())."</h2>";
+                    echo "<h2 id=\"board_name\">#".strtoupper(getBoard())."</h2>";
                 ?>
             </div>
             <article id="post_list">
@@ -203,7 +263,7 @@
                     });
                 }
                 //Display results
-                displayPosts($posts);
+                displayPosts($posts, $isAdmin);
                 ?>
             </article>
         </article>
