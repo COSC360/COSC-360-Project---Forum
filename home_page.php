@@ -179,9 +179,6 @@ function getBoardList(){
                 }else{
                     echo "<h1 class=\"profile_bar\"><a href=\"log_in.php\">LOG IN</a></h1>";
                 }
-            }else{
-                echo "<h1 class=\"profile_bar\"><a href=\"log_in.php\">LOG IN</a></h1>";
-            }
         ?>
         </div>
     </header>
