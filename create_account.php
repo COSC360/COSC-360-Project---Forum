@@ -25,7 +25,10 @@ if (isset($_SESSION["username"])) {
         </header>
         <section class="articleLeft">
             <figure id="avatar">
-                <img src="images/profile.svg" alt="Profile picture">
+                <img src="images/profile.svg" alt="Profile picture" id="profPic">
+                <form id="profpic" method="post" action="profilePic.php" enctype="multipart/form-data">
+                    <input type="file" id="imgUpload" name="userImage">
+                </form>
                 <figcaption class="addPicHolder"><a id="addPic" href="#">Add Photo</a></figcaption>
             </figure>
         </section>
@@ -117,9 +120,9 @@ if (isset($_SESSION["username"])) {
             <p></p>
         </footer>
     </article>
-    <script type="text/javascript" src="scripts/create_account.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="scripts/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="scripts/create_account.js"></script>
 </body>
 
 </html>

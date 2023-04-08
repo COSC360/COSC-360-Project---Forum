@@ -17,8 +17,11 @@
         </header>
         <section class="articleLeft">
             <figure id="avatar">
-                <img src="images/profile.svg" alt="Profile picture">
-                <figcaption class="addPicHolder"><a id="addPic" href="#">Add Photo</a></figcaption>
+                <img src="images/profile.svg" alt="Profile picture" id="profPic">
+                <form method="post" action="profilePic.php" enctype="multipart/form-data">
+                    <input type="file" id="imgUpload" name="userImage">
+                </form>
+                <figcaption class="addPicHolder"><a id="addPic" href="">Add Photo</a></figcaption>
             </figure>
         </section>
         <section class="articleRight">
@@ -109,6 +112,8 @@
             <p></p>
         </footer>
     </article>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="scripts/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="scripts/create_account.js"></script>
 </body>
 

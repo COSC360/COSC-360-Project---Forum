@@ -36,7 +36,8 @@
         $bday = $_POST["bdayYear"]."-".$_POST["bdayMonth"]."-".$_POST["bdayDate"];
         $joinDate = date("Y-m-d H:i:sa");
         
-     
+
+        
         $sql = "INSERT INTO Users (username, firstName, lastName, email, password, birthdate, role, dateJoined) VALUES (?,?,?,?,?,?,?,?)";
 
         $stmt = $con->prepare($sql);
@@ -51,8 +52,10 @@
         $result = $stmt ->execute();
 
         if($result){
+           
             $_SESSION["username"] = $user;
             $_SESSION["logged_in"] = true;
+            //$pic = include("profilePic.php");
             header("Location: home_page.php");
             $con = null;
         } 

@@ -56,6 +56,13 @@ a #backPage {
     width: 400px;
 }
 
+#avatar #profPic {
+    border-radius: 50%; 
+    height: 400px;
+    width: 400px;
+    text-align: center;
+ }
+
 #addPic > figure {
     text-align: center;
 }
@@ -64,6 +71,10 @@ a #backPage {
 }
 #addPic:visited {
     text-decoration: none;
+}
+
+#imgUpload {
+    display: none;
 }
 
 .articleRight {

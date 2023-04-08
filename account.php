@@ -9,7 +9,7 @@
     } catch (\Throwable $e) {
         echo("Connection Failed ".$e->getMessage()."<br>");
     }
-    $sql = "SELECT username,firstName,lastName,email,dateJoined FROM Users WHERE username = ?";
+    $sql = "SELECT * FROM Users WHERE username = ?";
     $stmt = $con ->prepare($sql);
     $stmt -> bindValue(1,$_SESSION["username"], PDO::PARAM_STR);
     $stmt -> execute();
@@ -72,8 +72,9 @@
         </header>
         <section class="avatar">
             <figure>
-                <img src="images/profile.svg" alt="Profile picture">
-                <figcaption><a id="addPic" href="#">Add/Change Photo</a></figcaption>
+                <img src=<?php echo($result["profilePic"]);?> alt="Profile picture" id="profPic">
+                <input type="file" id="imgUpload" name="userImage">
+                <figcaption hidden><a id="addPic" href="">Add/Change Photo</a></figcaption>
             </figure>
         </section>
         <section class="userInfo">
@@ -84,7 +85,7 @@
                     echo(date("Y-m-d",$tstamp));
                 ?>
             </p>
-            <form name="accContent">
+            <form method="post" action="http://localhost/COSC-360-Project---Forum/updateAcc.php" name="accContent">
                 <label for="uname">Username:</label>
                 <input type="text" name="uname" value=<?php echo($result["username"]);?> readonly>
                 <br><br>
@@ -94,17 +95,26 @@
                 <label for="lname">Last Name:</label>
                 <input type="text" name="lname" value=<?php echo($result["lastName"]);?> readonly>
                 <br><br>
+                <label for="bday">Birthday:</label>
+                <input type="text" name="bday" value=<?php echo($result["birthdate"]);?> readonly>
+                <br><br>
+                <label for="email">Email:</label>
+                <input type="text" name="email" value=<?php echo($result["email"]);?> readonly>
+                <br><br>
                 <label for="postCount">Number of Posts:</label>
                 <input type="number" name="postCount" value="8" readonly>
+                <br><br>
+                <button id="editProfile" type="submit" form="accContent">Edit Profile</button>
+                <input id="saveProfile" type ="submit" value="Save Changes">
+                <input id="cancelChanges" type ="button" value="Cancel">
             </form>
-            <button id="editProfile" type="submit" form="accContent" formmethod="post" formaction="#"
-                onclick="location.href = '#'">Edit Profile</button>
-            <button id="saveProfile" type ="submit" form="accContent" formmethod="post" onclick="location.href ='updateAcc.php'">Save Changes</button>
         </section>
         <footer class="footer">
         </footer>
         </footer>
     </article>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="scripts/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="scripts/account.js"></script>
 </body>
 
