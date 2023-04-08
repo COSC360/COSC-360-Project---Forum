@@ -51,7 +51,7 @@ if(isset($_POST['submitbtn'])){
                 $pstmt -> bindValue(1,$_POST['username']);
                 $pstmt -> bindValue(2,$_POST['title']);
                 $pstmt -> bindValue(3,$_POST['text']);
-                $pstmt -> bindValue(4,$targetFilePath);
+                $pstmt -> bindValue(4,$fileName);
                 $pstmt -> bindValue(5,$_POST['date']);
                 $pstmt -> bindValue(6,$_POST['board']);
                 print_r($sql);

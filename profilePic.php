@@ -59,7 +59,7 @@ if(isset($_SESSION["username"])) {
     else {
         // For a newly created account is created
         $targetDir ="images/";
-        $filename = "profilepic_user".$userID.strtolower(basename($_FILES["imageFile"]["name"]));
+        $filename = "profilepic_newuser".strtolower(basename($_FILES["imageFile"]["name"]));
         $filePath = $targetDir.$filename;
         $imageFileType = strtolower(pathinfo($filePath,PATHINFO_EXTENSION));
         $uploadOk = 1;

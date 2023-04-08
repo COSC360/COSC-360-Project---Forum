@@ -109,6 +109,7 @@ if (isset($_SESSION["username"])) {
                     <br>
                     <input type="password" name="repword">
                     <br><br>
+                    <input type="hidden" name="uploadPic" value ="images/profile.svg">
                 </form>
             </fieldset>
         </section>

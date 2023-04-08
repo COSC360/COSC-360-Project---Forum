@@ -87,7 +87,7 @@
                 <label for="postCount">Number of Posts:</label>
                 <input type="number" name="postCount" value=<?php echo($result2[0]);?> readonly>
                 <br><br>
-                <button id="editProfile" type="submit" form="accContent">Edit Profile</button>
+                <button id="editProfile" type="button" form="accContent">Edit Profile</button>
                 <input id="saveProfile" type ="submit" value="Save Changes">
                 <input id="cancelChanges" type ="button" value="Cancel">
             </form>

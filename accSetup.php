@@ -26,6 +26,7 @@
         else {return false;}
     }
     define("ROLE","user");
+    define("DEFAULT_PIC","images/profile.svg");
 
     if (variablesIsSet()) {
         $user = $_POST["uname"];
@@ -35,6 +36,7 @@
         $pass = md5($_POST["pword"]);
         $bday = $_POST["bdayYear"]."-".$_POST["bdayMonth"]."-".$_POST["bdayDate"];
         $joinDate = date("Y-m-d H:i:sa");
+        $pic = $_POST["uploadPic"];
         
 
         
@@ -55,7 +57,12 @@
            
             $_SESSION["username"] = $user;
             $_SESSION["logged_in"] = true;
-            //$pic = include("profilePic.php");
+            if($pic != DEFAULT_PIC) {
+                $sql = "UPDATE Users SET profilePic = ? WHERE username =".$_SESSION["username"];
+                $stmt = $con->prepare($sql);
+                $stmt -> bindParam(1,$pic);
+                $stmt -> execute();
+            }
             header("Location: home_page.php");
             $con = null;
         } 

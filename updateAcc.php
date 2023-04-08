@@ -37,6 +37,8 @@
         $lastname = $_POST["lname"];
         $bday = $_POST["bday"];
         $email = $_POST["email"];
+        include("profilePic.php");
+        $pic = $filepath;
 
     
     
@@ -87,8 +89,12 @@
         }
 
         if ($pic != $result["profilePic"]) {
-            include("profilePic.php");
-            $pic = $filePath;
+            $prep = "UPDATE Users SET profilePic= ? WHERE username = ?";
+            $pstmt = $con->prepare($prep);
+
+            $pstmt -> bindValue(1,$pic,PDO::PARAM_STR);
+            $pstmt -> bindValue(2,$_SESSION["username"],PDO::PARAM_STR);
+            $pstmt ->execute();
         }
 
         header("Location: account.php");

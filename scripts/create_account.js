@@ -26,6 +26,7 @@ $(document).ready(function() {
             success: function (res) {
                 if (res !=0) {
                     $("#profPic").attr("src",res);
+                    $("#uploadPic").attr("value",res);
                 } else {
                     alert("Unable to process image");
                 }
