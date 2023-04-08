@@ -57,14 +57,16 @@
            
             $_SESSION["username"] = $user;
             $_SESSION["logged_in"] = true;
-            if($pic != DEFAULT_PIC) {
-                $sql = "UPDATE Users SET profilePic = ? WHERE username =".$_SESSION["username"];
+            if($pic !== DEFAULT_PIC) {
+                $sql = "UPDATE Users SET profilePic = ? WHERE username =".$user;
                 $stmt = $con->prepare($sql);
                 $stmt -> bindParam(1,$pic);
                 $stmt -> execute();
             }
-            header("Location: home_page.php");
             $con = null;
+            header("Location: home_page.php");
+            exit();
+            
         } 
 
         
