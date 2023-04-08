@@ -14,7 +14,7 @@ function getBoardList(){
         $pdo = new PDO($connString,$user,$pass);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         //Get results
-        $sql = "select * from boards";
+        $sql = "select * from Boards";
         $result = $pdo->query($sql);
 
         $data = array();
