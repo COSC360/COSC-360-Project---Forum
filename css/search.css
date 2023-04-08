@@ -84,10 +84,6 @@ h2:hover{
     text-decoration: none;
 }
 
-input:hover{
-    cursor: pointer;
-}
-
 
 a:link {
     text-decoration: none;
@@ -179,6 +175,10 @@ a:visited {
 #search_bar{
     margin: auto;
     display: block;
+}
+
+#submit:hover{
+    cursor: pointer;
 }
 
 .profile_bar{
