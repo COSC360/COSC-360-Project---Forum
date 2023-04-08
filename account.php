@@ -56,7 +56,7 @@
         <section class="avatar">
             <figure>
                 <img src=<?php echo($result["profilePic"]);?> alt="Profile picture" id="profPic">
-                <input type="file" id="imgUpload" name="userImage">
+                <input type="file" id="imgUpload" name="userImage" accept="image/*">
                 <figcaption hidden><a id="addPic" href="">Add/Change Photo</a></figcaption>
             </figure>
         </section>

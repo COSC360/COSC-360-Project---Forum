@@ -40,7 +40,7 @@
         
 
         
-        $sql = "INSERT INTO Users (username, firstName, lastName, email, password, birthdate, role, dateJoined) VALUES (?,?,?,?,?,?,?,?)";
+        $sql = "INSERT INTO Users (username, firstName, lastName, email, password, birthdate, role, dateJoined, profilePic) VALUES (?,?,?,?,?,?,?,?,?)";
 
         $stmt = $con->prepare($sql);
         $stmt -> bindParam(1,$user);
@@ -51,22 +51,15 @@
         $stmt -> bindParam(6,$bday);
         $stmt -> bindValue(7,ROLE);
         $stmt -> bindValue(8,$joinDate);
+        $stmt -> bindValue(9,$pic);
         $result = $stmt ->execute();
 
         if($result){
            
             $_SESSION["username"] = $user;
             $_SESSION["logged_in"] = true;
-            if($pic !== DEFAULT_PIC) {
-                $sql = "UPDATE Users SET profilePic = ? WHERE username =".$user;
-                $stmt = $con->prepare($sql);
-                $stmt -> bindParam(1,$pic);
-                $stmt -> execute();
-            }
             $con = null;
             header("Location: home_page.php");
-            exit();
-            
         } 
 
         

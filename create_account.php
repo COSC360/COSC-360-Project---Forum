@@ -26,7 +26,7 @@ if (isset($_SESSION["username"])) {
             <figure id="avatar">
                 <img src="images/profile.svg" alt="Profile picture" id="profPic">
                 <form id="profpic" method="post" action="profilePic.php" enctype="multipart/form-data">
-                    <input type="file" id="imgUpload" name="userImage">
+                    <input type="file" id="imgUpload" name="userImage" accept="image/*">
                 </form>
                 <figcaption class="addPicHolder"><a id="addPic" href="#">Add Photo</a></figcaption>
             </figure>

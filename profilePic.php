@@ -2,6 +2,30 @@
 session_start();
 include("database.php");
 
+function getNextIncrement() {
+    $next_increment;
+    try {
+        //Create connection
+        $connString = DBCONN;
+        $user = DBUSER;
+        $pass = DBPASS;
+        $pdo = new PDO($connString,$user,$pass);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        //Get results
+        $sql = "SHOW TABLE STATUS LIKE 'Users'";
+        $result = $pdo->query($sql);
+        $data = $result->fetch();
+        $next_increment = $data['Auto_increment'];
+        print_r($next_increment);
+        //Close Connection
+        $pdo = null;
+    }
+    catch(PDOException $e){ //Catch exception
+        die($e->getMessage());
+    }
+    return $next_increment;
+}
+
 try {
     $con = new PDO(DBCONN,DBUSER,DBPASS);
     $con -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -20,16 +44,10 @@ if(isset($_SESSION["username"])) {
 
     //Upload file to directory (For an existing account)
     $targetDir ="images/";
-    $filename = "profilepic_user".$userID.strtolower(basename($_FILES["imageFile"]["name"]));
+    $filename = "profilepic_user".$userID.".png";
     $filePath = $targetDir.$filename;
     $imageFileType = strtolower(pathinfo($filePath,PATHINFO_EXTENSION));
     $uploadOk = 1;
-
-    $allowedExts = array("jpg","jpeg","png");
-
-    if (!in_array($imageFileType,$allowedExts)) {
-    $uploadOk = 0;
-    }
 
     if (file_exists($filePath)) {
         unlink($filePath);
@@ -59,16 +77,9 @@ if(isset($_SESSION["username"])) {
     else {
         // For a newly created account is created
         $targetDir ="images/";
-        $filename = "profilepic_newuser".strtolower(basename($_FILES["imageFile"]["name"]));
+        $filename = "profilepic_newuser".getNextIncrement().".png";
         $filePath = $targetDir.$filename;
-        $imageFileType = strtolower(pathinfo($filePath,PATHINFO_EXTENSION));
         $uploadOk = 1;
-
-        $allowedExts = array("jpg","jpeg","png");
-
-        if (!in_array($imageFileType,$allowedExts)) {
-        $uploadOk = 0;
-        }
 
         if (file_exists($filePath)) {
             unlink($filePath);
