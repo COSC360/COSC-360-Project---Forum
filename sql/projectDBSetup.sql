@@ -110,5 +110,3 @@ INSERT INTO Boards VALUES ("news");
 INSERT INTO Boards VALUES ("movies");
 INSERT INTO Boards VALUES ("videogames");
 INSERT INTO Boards VALUES ("memes");
-
---INSERT INTO Posts (usernameFK, title, postText, postDate, boardFK) VALUES ("johndoe","Test Post 1", "Just a test post to see","2023-04-06 12:53:20","General");
